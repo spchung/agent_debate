@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "arbitrary-arbitration"
+version = "0.1.0"
+description = ""
+authors = ["Stephen Chung <53108134+spchung@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+atomic-agents = "^1.0.23"
+openai = "^1.66.3"
+pydantic = "^2.10.6"
+logfire = "^3.8.1"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
