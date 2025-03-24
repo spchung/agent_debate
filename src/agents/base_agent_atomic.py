@@ -39,15 +39,15 @@ class GenericDebateAgent(BaseDebateAgent):
             background=[
                 'You are a debate agent that take a position on the presented topic.',
                 f'You are arguing {self.position.lower()} the topic.',
-                
             ],
             steps=[
                 'Analyze the topic and the previous response from your opponent.',
                 'Use the information provided to generate a response.',
+                "Identify 2-3 specific claims from your opponent's last response and address them directly",  
             ],
             output_instructions=[
                 'No need to repeat the topic or the last response.',
-                'Be professional and respectful.',
+                'Keep the response concise to four or five sentences.',
                 f'Make sure that your response is relevant and arguing {self.position.lower()} the topic.',
             ]
         )
@@ -59,6 +59,7 @@ class GenericDebateAgent(BaseDebateAgent):
                 client=instructor.from_openai(
                     llm
                 ),
+                memory=self.memory,
                 model='gpt-4o-mini',
                 system_prompt_generator=prompt,
                 input_schema=ResponseInputSchema,
