@@ -1,6 +1,9 @@
-from src.agents.basic.basic_agent_instructor import BasicDebateAgent
+from src.agents.kb.workers import ClaimInqueryGeneratorInputSchema, ClaimInqueryGeneratorOutputSchema, claim_inquery_generator_agent
+from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig
+from src.agents.kb.kb_agent_instructor import KnowledgeBaseDebateAgent
+
 
 shared_mem = BasicHistoryManager()
 
@@ -16,24 +19,25 @@ shared_mem.add_message(
         The againt side will argue for not banning mobile phones in schools, while the for side will argue for banning mobile phones in schools.
     """)
 
-
-agent_1 = BasicDebateAgent(
+agent_1 = KnowledgeBaseDebateAgent(
     topic=TOPIC,
     stance="against",
     agent_config=AgnetConfig(id="agent_1", name="Agent 1"),
-    memory_manager=shared_mem
+    memory_manager=shared_mem,
+    kb_path='knowledge_source/quantitative_easing'
 )
 
-agent_2 = BasicDebateAgent(
+agent_2 = KnowledgeBaseDebateAgent(
     topic=TOPIC,
     stance="for",
     agent_config=AgnetConfig(id="agent_2", name="Agent 2"),
-    memory_manager=shared_mem
+    memory_manager=shared_mem,
+    kb_path='knowledge_source/quantitative_easing'
 )
 
 turns = lim = 5
 
-f = open("basic_debate_log.txt", "w")
+f = open("kb_query_debate_log.txt", "w")
 
 while turns > 0:
     print(f"====== Round {lim - (turns - 1)} start ======")

@@ -8,6 +8,14 @@ class RetrievedNodeModel(BaseModel):
     text: str
     source_file_name: str
 
+    def __repr__(self):
+        return str(RetrievedNodeModel(
+            node_id=self.node_id,
+            score=self.score,
+            text=self.text[:50] + "..." if len(self.text) > 50 else self.text,
+            source_file_name=self.source_file_name
+        ))
+
 class QueryResponseModel(BaseModel):
     response: str
     source_nodes: List[RetrievedNodeModel]
