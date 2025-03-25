@@ -23,9 +23,7 @@ class BasicHistoryManager:
     
     def add_message(self, agent_config: AgnetConfig, message: str):
         new_msg = MessageModel(agent_config=agent_config, message=message)
-        
         self.messages.append(new_msg)
-
         # update raw representation
         self.raw_messages_list.append(new_msg.to_dict())
     
@@ -34,3 +32,9 @@ class BasicHistoryManager:
         for msg in self.messages:
             messages.append(msg.to_dict(agent_perspective=agent_perspective))
         return messages
+
+    def get_last_message(self) -> MessageModel | None:
+        agent_mesages = [msg for msg in self.messages if msg.agent_config.type != 'moderator']
+        if len(agent_mesages) == 0:
+            return None
+        return self.messages[-1]

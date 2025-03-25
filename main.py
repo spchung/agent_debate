@@ -1,9 +1,7 @@
 from atomic_agents.agents.base_agent import AgentMemory
-from agents.base_agent_atomic import GenericDebateAgent, ResponseInputSchema
+from src.agents.base_agent_atomic import GenericDebateAgent, ResponseInputSchema
 
 def main():
-
-
     shared_memory = AgentMemory()
     agent1 = GenericDebateAgent(
         position="FOR",

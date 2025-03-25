@@ -3,24 +3,11 @@ from typing import Literal
 from src.llm.client import llm
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig, ResponseModel
-
+from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 # Patch the OpenAI client
 client = instructor.from_openai(llm)
 
-"""
-Basic Debate Agent:
-- Use message history to generate next round response
-- No topic tracking
-- No moderator interfereence
-"""
-
-class BasicDebateAgent:
-    '''
-    1. init topic
-    2. init stance (for, against)
-    3. next round response
-    '''
-
+class KnowledgeBaseDebateAgent:
     def __init__(self, topic: str, stance: Literal["for", "against"], agent_config: AgnetConfig, memory_manager: BasicHistoryManager):
         self.memory_manager = memory_manager
         self.topic = topic
@@ -30,6 +17,9 @@ class BasicDebateAgent:
         # resigter agent
         self.memory_manager.register_agent_debator(agent_config)
 
+        ## knowledge base
+        self.kb = PdfKnowledgeBase('knowledge_source/quantitative_easing')
+    
     def __get_sys_message(self, is_final=False):
         if is_final:
             return {'role': 'system', 'content': f"""
@@ -75,11 +65,18 @@ class BasicDebateAgent:
                 Do not summarize or repeat previous points.
             """
         }
-
+    
     def next_round_response(self, is_final=False):
+        # retrieval
+        opponent_last_msg = self.memory_manager.get_last_message()
+        result = self.kb.query(opponent_last_msg.message) 
+
+        # reason
+
         sys_msg = self.__get_sys_message(is_final=is_final)
         message_history = self.memory_manager.to_msg_array(self.agent_config)
         message_history.insert(0, sys_msg)
+        
         resp = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=message_history,
@@ -95,6 +92,3 @@ class BasicDebateAgent:
             return resp[0].message
         
         raise Exception("Invalid response from OpenAI")
-
-    
-

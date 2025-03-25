@@ -31,16 +31,16 @@ agent_2 = BasicDebateAgent(
     memory_manager=shared_mem
 )
 
-turns = lim = 10
+turns = lim = 5
 
-f = open("log.txt", "w")
+f = open("basic_debate_log.txt", "w")
 
 while turns > 0:
     print(f"====== Round {lim - (turns - 1)} start ======")
-    res = agent_1.next_round_response()
+    res = agent_1.next_round_response(is_final=turns == 1)
     f.write(f"Agent 1: {res}\n")
     print(f"Agent 1: {res}")
-    res = agent_2.next_round_response()
+    res = agent_2.next_round_response(is_final=turns == 1)
     f.write(f"Agent 2: {res}\n")
     print(f"Agent 2: {res}")
     print(f"====== Round {lim - (turns - 1)} End ======")
