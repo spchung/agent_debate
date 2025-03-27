@@ -1270,6 +1270,20 @@ files = [
 llama-cloud-services = ">=0.6.4"
 
 [[package]]
+name = "llmsherpa"
+version = "0.1.4"
+description = "Strategic APIs to Accelerate LLM Use Cases"
+optional = false
+python-versions = "*"
+files = [
+    {file = "llmsherpa-0.1.4-py3-none-any.whl", hash = "sha256:88a651eacf221a997a9a9795903fbb70ddb211cd2e82831507de01284c917667"},
+    {file = "llmsherpa-0.1.4.tar.gz", hash = "sha256:18789840ded3d7e37db6a5c668dac2b0a58f20e426beaed3e60554dee0a5ecb0"},
+]
+
+[package.dependencies]
+urllib3 = "*"
+
+[[package]]
 name = "logfire"
 version = "3.8.1"
 description = "The best Python observability tool! 🪵🔥"
@@ -2324,6 +2338,24 @@ full = ["Pillow (>=8.0.0)", "cryptography"]
 image = ["Pillow (>=8.0.0)"]
 
 [[package]]
+name = "pypdf2"
+version = "3.0.1"
+description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming PDF files"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "PyPDF2-3.0.1.tar.gz", hash = "sha256:a74408f69ba6271f71b9352ef4ed03dc53a31aa404d29b5d31f53bfecfee1440"},
+    {file = "pypdf2-3.0.1-py3-none-any.whl", hash = "sha256:d16e4205cfee272fbdc0568b68d82be796540b1537508cef59388f839c191928"},
+]
+
+[package.extras]
+crypto = ["PyCryptodome"]
+dev = ["black", "flit", "pip-tools", "pre-commit (<2.18.0)", "pytest-cov", "wheel"]
+docs = ["myst_parser", "sphinx", "sphinx_rtd_theme"]
+full = ["Pillow", "PyCryptodome"]
+image = ["Pillow"]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 description = "Extensions to the standard Python datetime module"
@@ -3121,4 +3153,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "4c71e5b19d4377d8dc2fdf33440444b8a46994cd0b608acae6c61a21727d5513"
+content-hash = "ef3ee8d71adb3f51f2aca07f3528925fa9b5a1356a233398d850eec1550705b8"
