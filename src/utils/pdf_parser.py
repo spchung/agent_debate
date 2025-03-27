@@ -26,9 +26,6 @@ class PDFParser:
     '''
     def __init__(self, file_path):
         self.file_path = file_path
-        # self.text = self.pdf_to_text()
-        # self.sections = self.analyze_pdf_structure()
-        # self.document = self.create_document()
 
     def pdf_to_text(self, pdf_path: str) -> str:
         """

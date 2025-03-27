@@ -1,10 +1,12 @@
 ## atomic agents for specific tasks
+import os
 import instructor
 from typing import List, Literal
 from pydantic import Field
 from src.llm.client import llm
 from atomic_agents.agents.base_agent import BaseAgent, BaseAgentConfig, BaseIOSchema
 from atomic_agents.lib.components.system_prompt_generator import SystemPromptGenerator
+from src.utils.pdf_parser import PDFParser
 
 ## 1. Invididual document summarization with opinionated stance
 class TextSummarizerInputSchema(BaseIOSchema):
@@ -76,3 +78,38 @@ class OpinionatedTextSummarizer:
     def run(self, input: TextSummarizerInputSchema):
         return self.agent.run(input)
 
+def get_kb_with_stance(dir_path: str, topic: str, stance: Literal['for', 'against']):
+    return __summarize_knowledge_base_with_stance(dir_path, topic, stance, as_dict=False)
+
+def get_kb_with_stance_as_dict(dir_path: str, topic: str, stance: Literal['for', 'against']):
+    return __summarize_knowledge_base_with_stance(dir_path, topic, stance, as_dict=True)
+
+def __summarize_knowledge_base_with_stance(
+        dir_path: str, 
+        topic: str, 
+        stance: Literal['for', 'against'],
+        as_dict=False
+    ) -> dict:
+    # loop thru each file in directory
+    knowledge_bank = []
+    for file in os.listdir(dir_path):
+        if not file.endswith(".pdf"):
+            continue
+
+        parser  = PDFParser(f"{dir_path}/{file}")
+        raw_text = parser.pdf_to_text(f"{dir_path}/{file}")
+        summarizer = OpinionatedTextSummarizer(
+            topic=topic,
+            agent_stance=stance
+        )
+        res = summarizer.run(
+            TextSummarizerInputSchema(
+                text=raw_text
+            )
+        )
+        if as_dict:   
+            knowledge_bank.append(res.model_dump())
+        else:
+            knowledge_bank.append(res)
+
+    return knowledge_bank

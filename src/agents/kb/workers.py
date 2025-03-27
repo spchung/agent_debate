@@ -58,7 +58,3 @@ claim_inquery_generator_agent = BaseAgent(
         output_schema=ClaimInqueryGeneratorOutputSchema
     )
 )
-
-'''
-2. 
-'''

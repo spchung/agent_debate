@@ -1,32 +1,23 @@
 import json
 from src.utils.pdf_parser import PDFParser
 from src.llm.client import llm
-from src.agents.planning.workers import OpinionatedTextSummarizer, TextSummarizerInputSchema
-from pydantic import BaseModel
+from src.agents.planning.workers import summarize_knowledge_base_with_stance
 
-f = 'Multiple Structural Breaks in Panel Data'
+dir_path = "knowledge_source/quantitative_easing"
 
-parser  = PDFParser(f"knowledge_source/quantitative_easing/{f}.pdf",)
 def test_load():    
 
-    raw_text = parser.pdf_to_text(
-        f"knowledge_source/quantitative_easing/{f}.pdf"
-    )
-    
-    summarizer = OpinionatedTextSummarizer(
-        topic='Quantitative Easing is a good policy for long-term economic growth.',
-        agent_stance='against'
-    )
+    for_kb = summarize_knowledge_base_with_stance(dir_path, "Quantitative Easing is a good policy for long-term economic growth.", "for")
+    against_kb = summarize_knowledge_base_with_stance(dir_path, "Quantitative Easing is a good policy for long-term economic growth.", "against")
 
-    res = summarizer.run(
-        TextSummarizerInputSchema(
-            text=raw_text
-        )
-    )
 
-    # write to json 
-    with open(f"temp.json", 'w') as file:
-        file.write(res.model_dump_json())
+    d = {
+        "for": for_kb,
+        "against": against_kb
+    }
+
+    with open("temp.json", "w") as file:
+        json.dump(d, file)
 
 if __name__ == '__main__':
     test_load()
