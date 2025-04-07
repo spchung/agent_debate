@@ -16,6 +16,7 @@ bs4 = "^0.0.2"
 llama-index = "^0.12.25"
 llmsherpa = "^0.1.4"
 pypdf2 = "^3.0.1"
+llama-index-vector-stores-docarray = "^0.3.0"
 
 
 [build-system]

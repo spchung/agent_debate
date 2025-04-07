@@ -1,0 +1,88 @@
+{
+    "claims": [
+        {
+            "uuid": "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "text": "Quantitative Easing stimulates consumer spending for the broader economy because it lowers interest rates, making borrowing cheaper for individuals and businesses."
+        },
+        {
+            "uuid": "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "text": "Quantitative Easing supports economic recovery for the financial sector because it provides liquidity to banks and financial institutions, allowing them to lend more freely."
+        }
+    ],
+    "evidence": [
+        {
+            "uuid": "cd8f9ea4-2eb7-4bcb-a7a9-6013515c7a71",
+            "text": "The Federal Reserve's large-scale asset purchases under QE led to a significant reduction in long-term interest rates, which, according to research, enabled banks to lend more freely and contributed to economic recovery."
+        },
+        {
+            "uuid": "03695b04-feeb-44eb-8f5e-e266269339ee",
+            "text": "Quantitative easing (QE) programs have decreased long-term interest rates to near zero, which eases credit conditions and provides liquidity to the financial system, thereby facilitating cheaper borrowing for consumers and businesses."
+        },
+        {
+            "uuid": "4f18c83a-0dd2-4c32-9e39-d6ed5236f7dc",
+            "text": "Quantitative easing (QE) has risks, including potentially not being effective enough if banks do not lend out the additional reserves, which could limit its impact on economic recovery."
+        },
+        {
+            "uuid": "214a32c9-b9d3-455f-89de-3d1b9f7f9f88",
+            "text": "Quantitative easing (QE) programs were introduced by central banks to inject liquidity into the financial systems, which aimed to ease credit conditions and boost lending to banks and financial institutions during the financial crisis (2007-2013)."
+        },
+        {
+            "uuid": "6a5a7811-3e18-45b5-8650-486dcd2a24fd",
+            "text": "As a result of QE, the U.S. Federal Reserve's asset purchases have been shown to push down medium to long-term yields significantly, making it cheaper for individuals and businesses to borrow and stimulating consumer spending."
+        },
+        {
+            "uuid": "01feb44a-4a6d-4c70-ab19-fcb54c103ed6",
+            "text": "While quantitative easing (QE) does lower interest rates, there is a concern that it may not effectively translate into increased borrowing and spending by consumers if banks do not lend out the additional reserves provided by QE."
+        },
+        {
+            "uuid": "c8933324-a7ff-4d3e-827b-4643179637dd",
+            "text": "The introduction of QE can lead to higher inflation if it is more effective than intended in acting against deflation, suggesting that while QE aims to provide liquidity, it can also result in instability in the financial system."
+        },
+        {
+            "uuid": "65e4244d-6920-446d-a943-14e255405c3d",
+            "text": "The effectiveness of QE in stimulating consumer spending is uncertain, as the impact on consumer behavior may not be directly correlated with lower interest rates, leading to potential limitations in its intended economic stimulation effects."
+        }
+    ],
+    "relations": [
+        [
+            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "SUPPORTED_BY",
+            "6a5a7811-3e18-45b5-8650-486dcd2a24fd"
+        ],
+        [
+            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "SUPPORTED_BY",
+            "03695b04-feeb-44eb-8f5e-e266269339ee"
+        ],
+        [
+            "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "SUPPORTED_BY",
+            "214a32c9-b9d3-455f-89de-3d1b9f7f9f88"
+        ],
+        [
+            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "REFUTED_BY",
+            "01feb44a-4a6d-4c70-ab19-fcb54c103ed6"
+        ],
+        [
+            "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "REFUTED_BY",
+            "4f18c83a-0dd2-4c32-9e39-d6ed5236f7dc"
+        ],
+        [
+            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "REFUTED_BY",
+            "65e4244d-6920-446d-a943-14e255405c3d"
+        ],
+        [
+            "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "REFUTED_BY",
+            "c8933324-a7ff-4d3e-827b-4643179637dd"
+        ],
+        [
+            "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "SUPPORTED_BY",
+            "cd8f9ea4-2eb7-4bcb-a7a9-6013515c7a71"
+        ]
+    ]
+}
