@@ -7,7 +7,6 @@ Components
 
 import instructor
 from collections import defaultdict
-from pydantic import BaseModel
 from typing import List
 from uuid import uuid4
 from pydantic import Field
@@ -15,12 +14,15 @@ from src.llm.client import llm
 from atomic_agents.agents.base_agent import BaseAgent, BaseAgentConfig, BaseIOSchema
 from atomic_agents.lib.components.system_prompt_generator import SystemPromptGenerator
 from src.utils.embedding import get_openai_embedding
+from llama_index.core.schema import TextNode
+from src.utils.in_mem_vector_store import InMemoryVectorStore
 
 '''
 1. resource claim generator agent
 - input: resource, stance
 - output: claims
 '''
+
 class ResourceClaimExtractionInputSchema(BaseIOSchema):
     """ ResourceClaimExtractionInputSchema """
     resource_raw_text: str = Field(None, title="The resource to be processed")
@@ -115,8 +117,8 @@ evidence_extraction_agent = BaseAgent(
     3. claim -similar_to-> claim (weighted)
 '''
 class ClaimNode():
-    def __init__(self, claim):
-        self.uuid = str(uuid4())
+    def __init__(self, claim, uuid=None):
+        self.uuid = str(uuid4()) if uuid is None else uuid
         self.text = claim
         self.embedding = get_openai_embedding(claim)
     
@@ -134,10 +136,16 @@ class ClaimNode():
             'uuid': self.uuid,
             'text': self.text,
         }
+    
+    def to_llamaindex_node(self):
+        return TextNode(
+            text=self.text,
+
+        )
         
 class EvidenceNode():
-    def __init__(self, text: str):
-        self.uuid = str(uuid4())
+    def __init__(self, text: str, uuid=None):
+        self.uuid = str(uuid4()) if uuid is None else uuid
         self.text = text
 
     def __hash__(self):
@@ -150,6 +158,31 @@ class EvidenceNode():
         }
 
 class DebateKnowledgeGraph:
+    
+    @classmethod
+    def from_dict(cls, adict: dict):
+        instance = cls()
+        for claim in adict['claims']:
+            claim_node = ClaimNode(claim['text'], uuid=claim['uuid'])
+            instance.claim_nodes.add(claim_node)
+        
+        for evidence in adict['evidence']:
+            evidence_node = EvidenceNode(evidence['text'], evidence['uuid'])
+            instance.evidence_nodes.add(evidence_node)
+        
+        for rel in adict['relations']:
+            claim_node = next((c for c in instance.claim_nodes if c.uuid == rel[0]), None)
+            evidence_node = next((e for e in instance.evidence_nodes if e.uuid == rel[2]), None)
+            if claim_node and evidence_node:
+                instance.add_pair(claim_node, evidence_node, rel[1] == "SUPPORTED_BY")
+        
+        # build lookup map
+        for claim in instance.claim_nodes:
+            instance.claim_node_lookup[claim.uuid] = claim
+        
+
+        return instance
+
     def __init__(self):
         self.claim_nodes = set()
         self.evidence_nodes = set()
@@ -158,7 +191,45 @@ class DebateKnowledgeGraph:
         ## maps
         self.supported_by_map = defaultdict(list) # claim to evidence
         self.refuted_by_map = defaultdict(list) # claim to evidence
-        self.corrolation_map = defaultdict(list) # claim to claim (weighted)
+        # self.corrolation_map = defaultdict(list) # claim to claim (weighted)
+
+        # claim node lookup
+        self.vector_db = None
+        self.claim_node_lookup = {} # uuid -> claim node
+        self.prev_doc_length = 0 # number of documents in the vector store when last searched
+
+    def __build_vector_db(self):
+        store = InMemoryVectorStore()
+        count = 0
+        
+        # add document to the vector store
+        for claim in self.claim_nodes:
+            store.add(claim.text, embedding=claim.embedding, metadata={'uuid': claim.uuid})
+            count += 1
+        
+        self.vector_db = store
+        self.prev_doc_length = count
+
+
+    def query_claim(self, query_str: str) -> ClaimNode | None:
+        if not self.vector_db or self.prev_doc_length != len(self.claim_nodes):
+            self.__build_vector_db()
+        
+        # find the claim that is closest to the input query string
+        results = self.vector_db.search(query_str, limit=1)
+
+        if len(results) < 1:
+            print(f"[Warning] No claim found for query: {query_str}")
+            return None
+        
+        result = results[0]
+        print("RESUKTLS: ", result)
+        claim_uuid = result['metadata']['uuid']
+
+        # find the claim node in the claim_nodes set
+        return self.claim_node_lookup.get(claim_uuid, None)
+        
+
     
     def add_claim(self, claim: str) -> ClaimNode | None:
         claim_node = ClaimNode(claim)
@@ -168,12 +239,14 @@ class DebateKnowledgeGraph:
         self.claim_nodes.add(claim_node)
         return claim_node
 
-    def add_pair(self, claim_node: ClaimNode, evidence: str, is_support=True):
+    def add_evidence(self, evidence: str) -> EvidenceNode | None:
+        pass
+
+    def add_pair(self, claim_node: ClaimNode, evidence_node: EvidenceNode, is_support=True):
         if claim_node not in self.claim_nodes:
             print(f"[Warning] Claim: {claim_node} does not exist")
             return
         
-        evidence_node = EvidenceNode(evidence)
         rel = (claim_node, is_support, evidence_node)
         
         if rel in self.rels:

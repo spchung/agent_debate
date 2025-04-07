@@ -5,12 +5,13 @@ from src.agents.graph.workers import (
 import json
 from src.utils.pdf_parser import PDFParser
 from src.agents.graph.workers import DebateKnowledgeGraph, ClaimNode, EvidenceNode
+from src.utils.in_mem_vector_store import InMemoryVectorStore
 
 file = '/Users/stephen/Nottingham/arbitrary_arbitration/knowledge_source/quantitative_easing/qe_turbulance.pdf'
 TOPIC = "Quantitative Easing is a good policy for long-term economic growth."
 STANCE = "for"
 
-def main():
+def step1():
     # Parse the PDF file
     pdf_parser = PDFParser()
     
@@ -70,21 +71,78 @@ def main():
             })
             print(f"added against evidence: {evidence}")
     
-    print("====== Relations ======")    
-
     for rel in rels:
         claim_node = rel['claim']
-        evidence = rel['evidence']
+        evidence_node = EvidenceNode(rel['evidence'])
         is_support = rel['is_support']
 
-        kg.add_pair(claim_node, evidence, is_support)
-    
-    print("====== Knowledge Graph ======")
+        kg.add_pair(claim_node, evidence_node, is_support)
     
     ## save the graph
     with open('kg.json', 'w') as f:
         print (kg.to_json())
         json.dump(kg.to_json(), f, indent=4)
 
+def step2():
+    ### inference
+
+    # read form the json file
+    data = None
+    with open('kg.json', 'r') as f:
+        data = json.load(f)
+    
+    # create a new instance of DebateKnowledgeGraph
+    kg = DebateKnowledgeGraph.from_dict(data)
+
+    opponent_response = 'QE is an ineffective method of stimulating the economy. It leads to asset bubbles and income inequality.'
+
+    ## find the closest claim in the graph
+    claim = kg.query_claim(opponent_response)
+
+    ## get related evidence
+    supporting_evdience = []
+    refuting_evidence = []
+
+    if claim:
+        print(f"Claim: {claim}")
+        supporting_evdience = kg.supported_by_map[claim]
+        print(f"Evidence: {supporting_evdience}")
+        refuting_evidence = kg.refuted_by_map[claim]
+        print(f"Refuted evidence: {refuting_evidence}")
+    else:
+        print("No claim found in the graph.")
+    
+    ## TODO: respond to opponent
+
+
+def test():
+    store = InMemoryVectorStore()
+
+    docs = [
+        {
+            'text': 'Jerry is 15 years old.',
+            'metadata': {'uuid': '123', 'source': 'test_source'}
+        },
+        {
+            'text': 'John is 170 cm tall.',
+            'metadata': {'source': 'another_source', 'uuid': '456'}
+        }
+    ]
+
+    for doc in docs:
+        store.add(doc['text'], doc['metadata'])
+    
+    print(f"Length: {store.size()}")
+
+    # Search for similar documents
+    query = 'How tall is John?'
+    results = store.search(query)
+    print("Search results:")
+    for result in results:
+        print(f"ID: {result['id']}, Text: {result['text']}, Score: {result['score']}, Metadata: {result['metadata']}")
+
+
 if __name__ == '__main__':
-    main()
+    # step1()
+    step2()
+    # test()
