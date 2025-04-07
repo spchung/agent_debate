@@ -92,11 +92,11 @@ def __summarize_knowledge_base_with_stance(
     ) -> dict:
     # loop thru each file in directory
     knowledge_bank = []
+    parser  = PDFParser()
     for file in os.listdir(dir_path):
         if not file.endswith(".pdf"):
             continue
 
-        parser  = PDFParser(f"{dir_path}/{file}")
         raw_text = parser.pdf_to_text(f"{dir_path}/{file}")
         summarizer = OpinionatedTextSummarizer(
             topic=topic,

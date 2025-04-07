@@ -96,8 +96,6 @@ class KnowledgeBaseDebateAgent:
             "content": f"Consider the following information when responding to the user:\n\n{retrueved_res.response}"
         }
         
-        ## REASON
-
         sys_msg = self.__get_sys_message(is_final=is_final)
         message_history = self.memory_manager.to_msg_array(self.agent_config)
         message_history.insert(0, sys_msg)

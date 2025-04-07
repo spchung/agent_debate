@@ -24,8 +24,8 @@ class PDFParser:
     '''
     Extract sections from a given pdf file (published paper) and produce a llama Document object 
     '''
-    def __init__(self, file_path):
-        self.file_path = file_path
+    def __init__(self):
+        pass
 
     def pdf_to_text(self, pdf_path: str) -> str:
         """
