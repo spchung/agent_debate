@@ -1,92 +1,100 @@
 {
     "claims": [
         {
-            "uuid": "5b1069c8-2264-4426-ac16-64b4981e0f3e",
-            "text": "Quantitative Easing stimulates consumer spending for the broader economy because it lowers interest rates, making borrowing cheaper for individuals and businesses."
+            "uuid": "5e99fc0c-b44f-40be-a54d-13d36c58c165",
+            "text": "Quantitative Easing is beneficial for long-term economic stability because it helps to lower interest rates and supports job creation through increased consumer spending."
         },
         {
-            "uuid": "3d9001fe-9217-4283-b435-4c7929bcc60e",
-            "text": "Quantitative Easing supports economic recovery for the financial sector because it provides liquidity to banks and financial institutions, allowing them to lend more freely."
-        },
-        {
-            "uuid": "3d9001fe-9217-4283-b435-4c7929bcc60j",
-            "text": "Ducks are some of the most dangerous animals in the world."
+            "uuid": "9c7ebbd8-6516-4741-8833-beda271e7188",
+            "text": "Quantitative Easing promotes positive economic growth for the economy because it increases liquidity in the financial system and encourages borrowing and investment."
         }
     ],
     "evidence": [
         {
-            "uuid": "cd8f9ea4-2eb7-4bcb-a7a9-6013515c7a71",
-            "text": "The Federal Reserve's large-scale asset purchases under QE led to a significant reduction in long-term interest rates, which, according to research, enabled banks to lend more freely and contributed to economic recovery."
+            "uuid": "49c96657-05d7-4634-8c45-52b54bbdfb49",
+            "text": "While quantitative easing aims to lower interest rates and boost consumer spending, there is a risk that it may lead to long-term economic instability due to potential inflationary pressures and market distortions."
         },
         {
-            "uuid": "03695b04-feeb-44eb-8f5e-e266269339ee",
-            "text": "Quantitative easing (QE) programs have decreased long-term interest rates to near zero, which eases credit conditions and provides liquidity to the financial system, thereby facilitating cheaper borrowing for consumers and businesses."
+            "uuid": "c3671c3c-b08a-4ab5-9021-536f7b90f73d",
+            "text": "Quantitative easing has effectively decreased long-term interest rates to near zero, which has eased credit conditions and provided liquidity to the financial systems, thereby supporting job creation and increased consumer spending during economic crises."
         },
         {
-            "uuid": "4f18c83a-0dd2-4c32-9e39-d6ed5236f7dc",
-            "text": "Quantitative easing (QE) has risks, including potentially not being effective enough if banks do not lend out the additional reserves, which could limit its impact on economic recovery."
+            "uuid": "7173769d-f7a0-48d4-bc17-c476d88614fb",
+            "text": "The actual impact of quantitative easing on job creation and consumer spending can be limited if banks fail to lend out the additional reserves, undermining the intended benefits of the policy."
         },
         {
-            "uuid": "214a32c9-b9d3-455f-89de-3d1b9f7f9f88",
-            "text": "Quantitative easing (QE) programs were introduced by central banks to inject liquidity into the financial systems, which aimed to ease credit conditions and boost lending to banks and financial institutions during the financial crisis (2007-2013)."
+            "uuid": "98578558-77ea-43a0-a33d-f63dfce735c3",
+            "text": "Research indicates that large-scale asset purchases (LSAPs) by central banks have significantly lowered long-term interest rates, with estimates suggesting a decline of 46-85 basis points in U.S. Treasury yields as a direct result of liquidity effects from quantitative easing, thereby encouraging borrowing and investment."
         },
         {
-            "uuid": "6a5a7811-3e18-45b5-8650-486dcd2a24fd",
-            "text": "As a result of QE, the U.S. Federal Reserve's asset purchases have been shown to push down medium to long-term yields significantly, making it cheaper for individuals and businesses to borrow and stimulating consumer spending."
+            "uuid": "3026ad9b-9f15-493a-8739-55e2581fb866",
+            "text": "While quantitative easing aims to lower interest rates and promote borrowing, the actual effects can be counterproductive. The potential for increased inflation and the risk of banks not lending out additional reserves can undermine the intended economic growth outcomes."
         },
         {
-            "uuid": "01feb44a-4a6d-4c70-ab19-fcb54c103ed6",
-            "text": "While quantitative easing (QE) does lower interest rates, there is a concern that it may not effectively translate into increased borrowing and spending by consumers if banks do not lend out the additional reserves provided by QE."
+            "uuid": "859a865b-a273-4b9d-bdd7-215a9b15931e",
+            "text": "The implementation of quantitative easing has been associated with significant boosts in household net financial wealth, as asset prices increase due to lower yields, which in turn encourages consumer spending, contributing to long-term economic stability."
         },
         {
-            "uuid": "c8933324-a7ff-4d3e-827b-4643179637dd",
-            "text": "The introduction of QE can lead to higher inflation if it is more effective than intended in acting against deflation, suggesting that while QE aims to provide liquidity, it can also result in instability in the financial system."
+            "uuid": "6633cafd-3d8c-46ad-94aa-9938f77c5e2a",
+            "text": "Quantitative easing programs have been shown to create significant instability in financial systems. The research highlights that the addition of liquidity can lead to nonlinear dynamic chaos, which complicates the ability of the financial system to adjust effectively."
         },
         {
-            "uuid": "65e4244d-6920-446d-a943-14e255405c3d",
-            "text": "The effectiveness of QE in stimulating consumer spending is uncertain, as the impact on consumer behavior may not be directly correlated with lower interest rates, leading to potential limitations in its intended economic stimulation effects."
+            "uuid": "9e368c98-0bd7-42f2-9dc1-76b8c000c71e",
+            "text": "Quantitative easing programs implemented by central banks, such as the U.S. Federal Reserve and the Bank of England, successfully increased liquidity in the financial system, which facilitated easier credit conditions and stimulated investment opportunities, particularly during the financial crisis of 2007-2013."
         }
     ],
     "relations": [
         [
-            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
-            "SUPPORTED_BY",
-            "6a5a7811-3e18-45b5-8650-486dcd2a24fd"
-        ],
-        [
-            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
-            "SUPPORTED_BY",
-            "03695b04-feeb-44eb-8f5e-e266269339ee"
-        ],
-        [
-            "3d9001fe-9217-4283-b435-4c7929bcc60e",
-            "SUPPORTED_BY",
-            "214a32c9-b9d3-455f-89de-3d1b9f7f9f88"
-        ],
-        [
-            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "9c7ebbd8-6516-4741-8833-beda271e7188",
             "REFUTED_BY",
-            "01feb44a-4a6d-4c70-ab19-fcb54c103ed6"
+            "3026ad9b-9f15-493a-8739-55e2581fb866"
         ],
         [
-            "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "9c7ebbd8-6516-4741-8833-beda271e7188",
             "REFUTED_BY",
-            "4f18c83a-0dd2-4c32-9e39-d6ed5236f7dc"
+            "6633cafd-3d8c-46ad-94aa-9938f77c5e2a"
         ],
         [
-            "5b1069c8-2264-4426-ac16-64b4981e0f3e",
+            "5e99fc0c-b44f-40be-a54d-13d36c58c165",
             "REFUTED_BY",
-            "65e4244d-6920-446d-a943-14e255405c3d"
+            "7173769d-f7a0-48d4-bc17-c476d88614fb"
         ],
         [
-            "3d9001fe-9217-4283-b435-4c7929bcc60e",
-            "REFUTED_BY",
-            "c8933324-a7ff-4d3e-827b-4643179637dd"
-        ],
-        [
-            "3d9001fe-9217-4283-b435-4c7929bcc60e",
+            "9c7ebbd8-6516-4741-8833-beda271e7188",
             "SUPPORTED_BY",
-            "cd8f9ea4-2eb7-4bcb-a7a9-6013515c7a71"
+            "9e368c98-0bd7-42f2-9dc1-76b8c000c71e"
+        ],
+        [
+            "5e99fc0c-b44f-40be-a54d-13d36c58c165",
+            "SUPPORTED_BY",
+            "c3671c3c-b08a-4ab5-9021-536f7b90f73d"
+        ],
+        [
+            "5e99fc0c-b44f-40be-a54d-13d36c58c165",
+            "SUPPORTED_BY",
+            "859a865b-a273-4b9d-bdd7-215a9b15931e"
+        ],
+        [
+            "5e99fc0c-b44f-40be-a54d-13d36c58c165",
+            "REFUTED_BY",
+            "49c96657-05d7-4634-8c45-52b54bbdfb49"
+        ],
+        [
+            "9c7ebbd8-6516-4741-8833-beda271e7188",
+            "SUPPORTED_BY",
+            "98578558-77ea-43a0-a33d-f63dfce735c3"
+        ]
+    ],
+    "claim_similarity": [
+        [
+            "5e99fc0c-b44f-40be-a54d-13d36c58c165",
+            0.8642506676423846,
+            "9c7ebbd8-6516-4741-8833-beda271e7188"
+        ],
+        [
+            "9c7ebbd8-6516-4741-8833-beda271e7188",
+            0.8642506676423846,
+            "5e99fc0c-b44f-40be-a54d-13d36c58c165"
         ]
     ]
 }

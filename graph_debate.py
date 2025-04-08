@@ -1,11 +1,15 @@
 from src.agents.graph.workers import (
-    claim_extraction_agent, ResourceClaimExtractionInputSchema,
-    evidence_extraction_agent, EvidenceExtractionInputSchema
+    get_claim_extraction_agent, ResourceClaimExtractionInputSchema,
+    get_evidence_extraction_agent, EvidenceExtractionInputSchema
 )
 import json
+from src.debate.basic_history_manager import BasicHistoryManager
 from src.utils.pdf_parser import PDFParser
 from src.agents.graph.workers import DebateKnowledgeGraph, ClaimNode, EvidenceNode
 from src.utils.in_mem_vector_store import InMemoryVectorStore
+from src.utils.embedding import get_openai_embedding, cosine_similarity
+from src.shared.models import AgnetConfig
+from src.agents.graph.graph_agent_instructor import GraphDebateAgnet
 
 file = '/Users/stephen/Nottingham/arbitrary_arbitration/knowledge_source/quantitative_easing/qe_turbulance.pdf'
 TOPIC = "Quantitative Easing is a good policy for long-term economic growth."
@@ -19,7 +23,7 @@ def step1():
     raw_text = pdf_parser.pdf_to_text(file)
 
     # Extract claims from the text
-    claim_res = claim_extraction_agent.run(
+    claim_res = get_claim_extraction_agent(num_of_claims=2).run(
         ResourceClaimExtractionInputSchema(
             resource_raw_tex=raw_text,
             topic=TOPIC,
@@ -33,7 +37,10 @@ def step1():
     ### build knowledge graph
     
     kg = DebateKnowledgeGraph()
+
     # extract evidence from the claims
+    evidence_extraction_agent = get_evidence_extraction_agent(num_of_evidence=2)
+    
     for claim in claim_res.claims:
         
         claim_node = kg.add_claim(claim)
@@ -94,26 +101,34 @@ def step2():
     # create a new instance of DebateKnowledgeGraph
     kg = DebateKnowledgeGraph.from_dict(data)
 
+    # print(kg.claim_similarity_map)
+    # return 
+
     opponent_response = 'QE is an ineffective method of stimulating the economy. It leads to asset bubbles and income inequality.'
 
     ## find the closest claim in the graph
-    claim = kg.query_claim(opponent_response)
+    claim = kg.get_most_relative_claim(opponent_response)
 
-    ## get related evidence
-    supporting_evdience = []
-    refuting_evidence = []
+    print(f"Claim: {claim}")
 
-    if claim:
-        print(f"Claim: {claim}")
-        supporting_evdience = kg.supported_by_map[claim]
-        print(f"Evidence: {supporting_evdience}")
-        refuting_evidence = kg.refuted_by_map[claim]
-        print(f"Refuted evidence: {refuting_evidence}")
-    else:
-        print("No claim found in the graph.")
+    # find next best claim
+    next_claim = kg.find_next_relative_claim(claim)
+    print(f"Next claim: {next_claim}")
+
+    # ## get related evidence
+    # supporting_evdience = []
+    # refuting_evidence = []
+
+    # if claim:
+    #     print(f"Claim: {claim}")
+    #     supporting_evdience = kg.supported_by_map[claim]
+    #     print(f"Evidence: {supporting_evdience}")
+    #     refuting_evidence = kg.refuted_by_map[claim]
+    #     print(f"Refuted evidence: {refuting_evidence}")
+    # else:
+    #     print("No claim found in the graph.")
     
     ## TODO: respond to opponent
-
 
 def test():
     store = InMemoryVectorStore()
@@ -142,7 +157,71 @@ def test():
         print(f"ID: {result['id']}, Text: {result['text']}, Score: {result['score']}, Metadata: {result['metadata']}")
 
 
+from src.utils.logger import setup_logger
+logger = setup_logger()
+
+def main():
+    shared_mem = BasicHistoryManager()
+    moderator = AgnetConfig(id="moderator", name="Moderator", type="moderator")
+    shared_mem.register_agent_moderator(moderator)
+
+    TOPIC = "Quantitative Easing is a good policy for long-term economic growth."
+
+    shared_mem.add_message(
+        moderator, 
+        f"""
+            Today's topic is: '{TOPIC}'. 
+        """)
+    
+    logger.info(f"Today's topic is: '{TOPIC}'")
+    
+    agent_1 = GraphDebateAgnet(
+        topic=TOPIC,
+        stance="against",
+        agent_config=AgnetConfig(id="agent_1", name="Agent 1"),
+        memory_manager=shared_mem,
+        kb_path='knowledge_source/qe_mini',
+        persist_kg_path='knowledge_graphs/agent_1_kg.json'
+    )
+
+    agent_2 = GraphDebateAgnet(
+        topic=TOPIC,
+        stance="for",
+        agent_config=AgnetConfig(id="agent_2", name="Agent 2"),
+        memory_manager=shared_mem,
+        kb_path='knowledge_source/qe_mini',
+        persist_kg_path='knowledge_graphs/agent_2_kg.json'
+    )
+
+    turns = lim = 5
+
+    f = open("kg_debate_log.txt", "w")
+
+    while turns > 0:
+        print(f"====== Round {lim - (turns - 1)} start ======")
+        res = agent_1.next_round_response(is_final = turns == 1)
+        f.write(f"Agent 1: {res}\n")
+        print(f"Agent 1: {res}")
+        res = agent_2.next_round_response(is_final = turns == 1)
+        f.write(f"Agent 2: {res}\n")
+        print(f"Agent 2: {res}")
+        print(f"====== Round {lim - (turns - 1)} End ======")
+        turns -= 1
+
+    f.close()
+
+
+def test_cosinse_sim():
+    a = get_openai_embedding('Jerry is 15 years old.')
+    b = get_openai_embedding('John is 12 years old.')
+    c = get_openai_embedding("The japanese yen has crashed against the dollar.")
+
+    print(f"Cosine similarity: {cosine_similarity(a, b)}")
+    print(f"Cosine similarity: {cosine_similarity(a, c)}")
+
 if __name__ == '__main__':
     # step1()
-    step2()
+    # step2()
     # test()
+    # test_cosinse_sim()
+    main()

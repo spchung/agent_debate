@@ -27,11 +27,15 @@ class BasicHistoryManager:
         # update raw representation
         self.raw_messages_list.append(new_msg.to_dict())
     
-    def to_msg_array(self, agent_perspective: AgnetConfig):
-        messages = []
-        for msg in self.messages:
-            messages.append(msg.to_dict(agent_perspective=agent_perspective))
-        return messages
+    def to_msg_array(self, agent_perspective: AgnetConfig, omit_moderator: bool = False) -> list[dict]:
+        messages = self.messages.copy()
+        if omit_moderator:
+            messages = [msg for msg in messages if msg.agent_config.type != 'moderator']
+        
+        result = []
+        for msg in messages:
+            result.append(msg.to_dict(agent_perspective=agent_perspective))
+        return result
 
     def get_last_message(self) -> MessageModel | None:
         agent_mesages = [msg for msg in self.messages if msg.agent_config.type != 'moderator']

@@ -1,0 +1,330 @@
+{
+    "claims": [
+        {
+            "uuid": "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            "text": "Quantitative Easing supports financial markets for investors because it lowers borrowing costs and enhances asset prices."
+        },
+        {
+            "uuid": "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            "text": "Quantitative Easing promotes economic stability for the financial market because it increases liquidity and encourages lending."
+        },
+        {
+            "uuid": "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            "text": "Quantitative Easing supports job creation for the labor market because it stimulates consumer spending and investment."
+        },
+        {
+            "uuid": "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            "text": "Quantitative Easing encourages investment for businesses because it lowers interest rates and makes borrowing cheaper."
+        },
+        {
+            "uuid": "2b036ff5-d480-479b-825f-403eb4997061",
+            "text": "Quantitative Easing stimulates economic growth for the overall economy because it increases money supply and promotes spending."
+        }
+    ],
+    "evidence": [
+        {
+            "uuid": "3bd26d9e-9585-4cae-ac41-20f8d6eac4b1",
+            "text": "The research highlights that Quantitative Easing (QE) has a low effect on economic growth, indicating that it may not effectively stimulate consumer spending or investment, which are critical for job creation in the labor market.",
+            "is_support": false
+        },
+        {
+            "uuid": "94551237-01c2-4d78-9d71-1a4d2e70da40",
+            "text": "The study indicates that despite lowering interest rates, which is intended to make borrowing cheaper, the actual effect of Quantitative Easing (QE) on real economic growth and investment remains weak, suggesting that it may not effectively encourage business investment as claimed.",
+            "is_support": false
+        },
+        {
+            "uuid": "ba9f03a1-a536-4ae9-bb20-3e8eda01d483",
+            "text": "Quantitative Easing (QE) effectively lowers interest rates, which generally encourages businesses to borrow more cheaply for investment purposes, thereby stimulating economic activity.",
+            "is_support": true
+        },
+        {
+            "uuid": "18895d38-16e1-4be4-a755-950c191e0c4d",
+            "text": "Despite the intention of QE to stimulate spending and economic growth, the findings suggest that monetary expansion has been primarily used for speculative purposes rather than promoting productive investment and consumption in the overall economy.",
+            "is_support": true
+        },
+        {
+            "uuid": "7b4de176-f306-4150-889f-7e8abd23efc8",
+            "text": "Despite lower borrowing costs, the report highlights that the nominal GDP growth has not kept pace with the increase in money supply, suggesting that the benefits of QE in enhancing asset prices may not translate into broader economic support for investors.",
+            "is_support": false
+        },
+        {
+            "uuid": "cad4aafe-755f-48e2-883f-86d5c6d4978e",
+            "text": "Quantitative Easing (QE) has been linked to increased liquidity in financial markets, which facilitates lending and investment. For instance, studies indicate that during QE periods, banks have more capital to lend, thus stimulating economic activity.",
+            "is_support": true
+        },
+        {
+            "uuid": "74d52817-c9e2-4f6a-b987-f3a4dd803486",
+            "text": "The analysis demonstrates that lower interest rates, as a result of QE, are intended to enhance borrowing capabilities for businesses, promoting investment and contributing to economic growth.",
+            "is_support": true
+        },
+        {
+            "uuid": "e5819b7f-b556-4491-ad1d-70ea209f3676",
+            "text": "The analysis indicates that while Quantitative Easing (QE) increases the money supply, it has not effectively stimulated economic growth, as evidenced by the slower increase in nominal GDP compared to money supply, implying a decrease in money velocity.",
+            "is_support": false
+        },
+        {
+            "uuid": "de59ba05-2fab-4cb0-b85e-80a10b396c20",
+            "text": "By enhancing liquidity in financial markets, QE enables banks to lend more freely, encouraging businesses to invest and hire, which further contributes to job creation and economic growth.",
+            "is_support": true
+        },
+        {
+            "uuid": "a75fd7fe-1668-4eb5-a7ef-f5ce2e255ac7",
+            "text": "The analysis indicates that while Quantitative Easing (QE) increases the money supply, the relationship between money supply and nominal GDP growth shows that the increase in money supply has not effectively translated into economic growth, as evidenced by a decrease in money velocity.",
+            "is_support": true
+        },
+        {
+            "uuid": "c2a2ef7f-7185-4207-9130-b3a05f0f2238",
+            "text": "The study suggests that despite the intent of QE to boost economic activity, it has not led to significant increases in money supply, inflation, or economic growth, thus questioning its effectiveness in supporting job creation.",
+            "is_support": false
+        },
+        {
+            "uuid": "d197ffd4-92f1-4f7b-b290-1840c4173e4f",
+            "text": "Quantitative Easing (QE) contributes to lower borrowing costs, which directly supports financial markets by making it cheaper for investors to finance their investments, thus enhancing asset prices.",
+            "is_support": true
+        },
+        {
+            "uuid": "2982d8bf-d7b4-4666-8d4a-323ba945a67c",
+            "text": "The research indicates that Quantitative Easing has a low effect on economic growth due to challenges posed by securitization and liquidity traps, suggesting that it may not effectively promote lending or liquidity as intended.",
+            "is_support": false
+        },
+        {
+            "uuid": "ac508613-003d-4fed-9724-9036c7c86483",
+            "text": "The analysis reveals that changes in interest rates have small inverse effects on economic growth, indicating that even with lower borrowing costs, monetary policy has lost its direct impact on stimulating investment in the economy.",
+            "is_support": false
+        },
+        {
+            "uuid": "90e4255f-4ce0-41f0-aff0-57357154804d",
+            "text": "Research shows that QE can indirectly support economic growth by lowering interest rates and enhancing credit conditions, which in turn encourages lending to businesses and consumers, thereby promoting financial market stability.",
+            "is_support": true
+        },
+        {
+            "uuid": "69db58fa-edcf-43e0-b56a-5d7e1480816e",
+            "text": "It is argued that the distributional effects of QE may outweigh its intended benefits, as it primarily rewards banks and does not significantly stimulate credit conditions or economic stability.",
+            "is_support": false
+        },
+        {
+            "uuid": "20676411-c8c0-4992-a72c-e3db40ea5beb",
+            "text": "The findings suggest that the expansion of the monetary base during QE primarily facilitated speculation rather than promoting actual spending and investment in the economy, limiting its effectiveness in stimulating economic growth.",
+            "is_support": false
+        },
+        {
+            "uuid": "246dd527-da82-4546-9a27-ee79433aea0c",
+            "text": "The increase in the monetary base during QE has led to a rise in asset prices, as investors seek higher yields in riskier assets due to the low-interest-rate environment created by the Federal Reserve.",
+            "is_support": true
+        },
+        {
+            "uuid": "b8e093ce-a5ea-4e77-a806-7e2e2084b1aa",
+            "text": "Quantitative Easing (QE) is designed to stimulate economic activity by lowering interest rates, which can lead to increased consumer spending and investment, thus supporting job creation in the labor market.",
+            "is_support": true
+        },
+        {
+            "uuid": "213b2289-7eae-40f5-91a7-67bb3fd3df20",
+            "text": "The analysis indicates that while Quantitative Easing (QE) lowers borrowing costs, the actual effectiveness of this policy in supporting financial markets is diminished by the fact that a significant portion of the increased money supply is being used for speculative purposes rather than productive investments.",
+            "is_support": false
+        }
+    ],
+    "relations": [
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            "REFUTED_BY",
+            "2982d8bf-d7b4-4666-8d4a-323ba945a67c"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            "REFUTED_BY",
+            "213b2289-7eae-40f5-91a7-67bb3fd3df20"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            "SUPPORTED_BY",
+            "246dd527-da82-4546-9a27-ee79433aea0c"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            "REFUTED_BY",
+            "7b4de176-f306-4150-889f-7e8abd23efc8"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            "REFUTED_BY",
+            "20676411-c8c0-4992-a72c-e3db40ea5beb"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            "SUPPORTED_BY",
+            "ba9f03a1-a536-4ae9-bb20-3e8eda01d483"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            "SUPPORTED_BY",
+            "74d52817-c9e2-4f6a-b987-f3a4dd803486"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            "SUPPORTED_BY",
+            "de59ba05-2fab-4cb0-b85e-80a10b396c20"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            "SUPPORTED_BY",
+            "d197ffd4-92f1-4f7b-b290-1840c4173e4f"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            "SUPPORTED_BY",
+            "18895d38-16e1-4be4-a755-950c191e0c4d"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            "REFUTED_BY",
+            "ac508613-003d-4fed-9724-9036c7c86483"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            "SUPPORTED_BY",
+            "90e4255f-4ce0-41f0-aff0-57357154804d"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            "REFUTED_BY",
+            "c2a2ef7f-7185-4207-9130-b3a05f0f2238"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            "REFUTED_BY",
+            "69db58fa-edcf-43e0-b56a-5d7e1480816e"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            "REFUTED_BY",
+            "94551237-01c2-4d78-9d71-1a4d2e70da40"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            "SUPPORTED_BY",
+            "a75fd7fe-1668-4eb5-a7ef-f5ce2e255ac7"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            "SUPPORTED_BY",
+            "b8e093ce-a5ea-4e77-a806-7e2e2084b1aa"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            "REFUTED_BY",
+            "3bd26d9e-9585-4cae-ac41-20f8d6eac4b1"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            "SUPPORTED_BY",
+            "cad4aafe-755f-48e2-883f-86d5c6d4978e"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            "REFUTED_BY",
+            "e5819b7f-b556-4491-ad1d-70ea209f3676"
+        ]
+    ],
+    "claim_similarity": [
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            0.8050169659372755,
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            0.7436086153183052,
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            0.8525518693997295,
+            "2b036ff5-d480-479b-825f-403eb4997061"
+        ],
+        [
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83",
+            0.7783167940855891,
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            0.8050169659372755,
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            0.7533450629618322,
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            0.8405749119546223,
+            "2b036ff5-d480-479b-825f-403eb4997061"
+        ],
+        [
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632",
+            0.8313413402353343,
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            0.7436086153183052,
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            0.7533450629618322,
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            0.7191521161508645,
+            "2b036ff5-d480-479b-825f-403eb4997061"
+        ],
+        [
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf",
+            0.8252529691794143,
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            0.8525518693997295,
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            0.7191521161508645,
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            0.8405749119546223,
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632"
+        ],
+        [
+            "2b036ff5-d480-479b-825f-403eb4997061",
+            0.7490964179292066,
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            0.8313413402353343,
+            "fe6ab4bd-8a3a-45fa-b3b8-642a1fd19632"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            0.7783167940855891,
+            "e56b23fc-8320-4aeb-a306-6b5e8972bf83"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            0.8252529691794143,
+            "b0d9a518-7298-4d86-9a0d-b2ca993482bf"
+        ],
+        [
+            "b7439cf1-d124-488a-8d4c-caf4cb29df13",
+            0.7490964179292066,
+            "2b036ff5-d480-479b-825f-403eb4997061"
+        ]
+    ]
+}

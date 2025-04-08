@@ -1,0 +1,172 @@
+{
+    "claims": [
+        {
+            "uuid": "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "text": "Quantitative Easing negatively impacts long-term economic growth because it encourages excessive risk-taking among investors."
+        },
+        {
+            "uuid": "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            "text": "Quantitative Easing is detrimental to long-term economic growth because it leads to increased public debt levels that can burden future generations."
+        },
+        {
+            "uuid": "540f5c18-d540-4596-b27f-da8e1445203c",
+            "text": "Quantitative Easing negatively affects long-term economic growth because it can lead to asset bubbles that distort investment priorities."
+        }
+    ],
+    "evidence": [
+        {
+            "uuid": "4e57432a-417c-43d8-b0b6-4df7a5c554d6",
+            "text": "During the Great Recession, the Federal Reserve's measures, including QE, resulted in banks restoring profitability without significantly enhancing economic activity, indicating that such policies may contribute to a misallocation of resources and excessive risk among investors.",
+            "is_support": false
+        },
+        {
+            "uuid": "d58fb1f1-f1a9-476c-9e39-42185b05cfe2",
+            "text": "The paper indicates that quantitative easing (QE) has low effects on economic growth, suggesting that it does not significantly stimulate the economy as intended.",
+            "is_support": true
+        },
+        {
+            "uuid": "647f57df-18a9-4ece-a564-13d39fdabe22",
+            "text": "Research shows that the speculative behavior induced by artificially low interest rates, a consequence of QE, can lead to asset bubbles, which distort investment priorities.",
+            "is_support": true
+        },
+        {
+            "uuid": "22f4ca1b-1d00-48ef-9281-7b510e1e3003",
+            "text": "The study suggests that despite the increase in the monetary base and money supply due to quantitative easing (QE), nominal GDP has not increased at a corresponding rate, indicating a decrease in money velocity and an over-reliance on speculation, which could exacerbate public debt levels.",
+            "is_support": true
+        },
+        {
+            "uuid": "7dcbb3ba-8c6b-4983-bdd3-2f8d75969110",
+            "text": "The study indicates that the interest elasticity of output has diminished, suggesting that monetary policy, including quantitative easing (QE), has lost its direct effect on economic activity, thus implying that it does not encourage sustainable growth and can lead to excessive risk-taking.",
+            "is_support": true
+        },
+        {
+            "uuid": "7775aec9-9ca6-47f7-86c0-4b39b649b532",
+            "text": "The authors point out that the speculative behavior induced by artificially low interest rates is a main weakness of QE, suggesting that this can result in distorted investment priorities and potential asset bubbles.",
+            "is_support": false
+        },
+        {
+            "uuid": "c1983345-a0f4-4172-9f66-8a95236de109",
+            "text": "The study indicates that the interest elasticity of output has diminished, suggesting that monetary policy, including quantitative easing (QE), has lost its direct effect on economic activity, thus implying that it does not encourage sustainable growth and can lead to excessive risk-taking.",
+            "is_support": false
+        },
+        {
+            "uuid": "f62d177a-8055-4a43-8213-c42f2fb04fc7",
+            "text": "The analysis indicates that while the monetary base and money supply increased due to quantitative easing (QE), nominal GDP did not keep pace, suggesting that this policy may encourage speculative behavior rather than productive investment, which could lead to increased public debt levels.",
+            "is_support": false
+        },
+        {
+            "uuid": "d13832d8-9905-47a0-ab3c-0f66618229e8",
+            "text": "The authors propose that instead of relying on QE that expands public debt, the Federal Reserve should consider direct funding for households to mitigate economic issues, implying that current QE strategies could burden future generations with debt.",
+            "is_support": false
+        },
+        {
+            "uuid": "317a3cd3-6891-4a6a-9cbe-7841a353f190",
+            "text": "The authors argue that the Federal Reserve's expansionary monetary policy, including QE, results in unequal distribution of benefits, which may lead to higher public debt levels as measures like helicopter money contribute to future liabilities without addressing structural economic issues.",
+            "is_support": true
+        },
+        {
+            "uuid": "cc46543e-7519-4817-96e4-43b1ff546d71",
+            "text": "During the Great Recession, the Federal Reserve's measures, including QE, resulted in banks restoring profitability without significantly enhancing economic activity, indicating that such policies may contribute to a misallocation of resources and excessive risk among investors.",
+            "is_support": true
+        },
+        {
+            "uuid": "eb380dbc-7b71-43cd-9c8d-07f65fef755f",
+            "text": "The study indicates that quantitative easing (QE) has a low effect on economic growth, implying that it does not significantly enhance long-term growth, which can lead to misallocation of resources and contribute to asset bubbles.",
+            "is_support": false
+        }
+    ],
+    "relations": [
+        [
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "SUPPORTED_BY",
+            "cc46543e-7519-4817-96e4-43b1ff546d71"
+        ],
+        [
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "REFUTED_BY",
+            "4e57432a-417c-43d8-b0b6-4df7a5c554d6"
+        ],
+        [
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            "REFUTED_BY",
+            "f62d177a-8055-4a43-8213-c42f2fb04fc7"
+        ],
+        [
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            "REFUTED_BY",
+            "d13832d8-9905-47a0-ab3c-0f66618229e8"
+        ],
+        [
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            "SUPPORTED_BY",
+            "22f4ca1b-1d00-48ef-9281-7b510e1e3003"
+        ],
+        [
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            "SUPPORTED_BY",
+            "317a3cd3-6891-4a6a-9cbe-7841a353f190"
+        ],
+        [
+            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "SUPPORTED_BY",
+            "647f57df-18a9-4ece-a564-13d39fdabe22"
+        ],
+        [
+            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "REFUTED_BY",
+            "7775aec9-9ca6-47f7-86c0-4b39b649b532"
+        ],
+        [
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "SUPPORTED_BY",
+            "7dcbb3ba-8c6b-4983-bdd3-2f8d75969110"
+        ],
+        [
+            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "SUPPORTED_BY",
+            "d58fb1f1-f1a9-476c-9e39-42185b05cfe2"
+        ],
+        [
+            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "REFUTED_BY",
+            "eb380dbc-7b71-43cd-9c8d-07f65fef755f"
+        ],
+        [
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "REFUTED_BY",
+            "c1983345-a0f4-4172-9f66-8a95236de109"
+        ]
+    ],
+    "claim_similarity": [
+        [
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            0.903166258449103,
+            "540f5c18-d540-4596-b27f-da8e1445203c"
+        ],
+        [
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            0.8562492851609614,
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8"
+        ],
+        [
+            "540f5c18-d540-4596-b27f-da8e1445203c",
+            0.903166258449103,
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5"
+        ],
+        [
+            "540f5c18-d540-4596-b27f-da8e1445203c",
+            0.848613143016957,
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8"
+        ],
+        [
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            0.8562492851609614,
+            "295063e0-c5ed-4f3b-a739-98d5c7de88f5"
+        ],
+        [
+            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            0.848613143016957,
+            "540f5c18-d540-4596-b27f-da8e1445203c"
+        ]
+    ]
+}

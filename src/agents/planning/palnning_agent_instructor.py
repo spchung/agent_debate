@@ -53,12 +53,10 @@ class PlanningDebateAgent:
                 List out each claim you made in the debate.
                 Then summarize your position on the topic.
 
-
                 OUTPUT INSTRUCTIONS
 
                 Use bullet points to list out each claim you made in the debate.
                 Write in full sentences.
-
                 """
                 }
 
