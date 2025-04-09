@@ -1,172 +1,172 @@
 {
     "claims": [
         {
-            "uuid": "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
-            "text": "Quantitative Easing negatively impacts long-term economic growth because it encourages excessive risk-taking among investors."
+            "uuid": "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
+            "text": "Quantitative Easing negatively impacts long-term economic growth because it can lead to asset bubbles and increased inequality."
         },
         {
-            "uuid": "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
-            "text": "Quantitative Easing is detrimental to long-term economic growth because it leads to increased public debt levels that can burden future generations."
+            "uuid": "e5405db8-d6b3-4376-b4b5-988019115bd6",
+            "text": "Quantitative Easing creates dependency on monetary policy for long-term economic growth because it undermines the need for structural reforms in the economy."
         },
         {
-            "uuid": "540f5c18-d540-4596-b27f-da8e1445203c",
-            "text": "Quantitative Easing negatively affects long-term economic growth because it can lead to asset bubbles that distort investment priorities."
+            "uuid": "940ce98c-665d-4c9f-a12c-11a7f9261e12",
+            "text": "Quantitative Easing leads to a devaluation of currency for long-term economic growth because it distorts market signals and discourages savings."
         }
     ],
     "evidence": [
         {
-            "uuid": "4e57432a-417c-43d8-b0b6-4df7a5c554d6",
-            "text": "During the Great Recession, the Federal Reserve's measures, including QE, resulted in banks restoring profitability without significantly enhancing economic activity, indicating that such policies may contribute to a misallocation of resources and excessive risk among investors.",
+            "uuid": "1ebd3ee1-4276-447b-aab7-482b141c766a",
+            "text": "Quantitative Easing has created dependency on monetary policy as it has led to banks' low-risk strategies and ineffective economic stimulation, undermining the necessity for structural reforms in the economy.",
             "is_support": false
         },
         {
-            "uuid": "d58fb1f1-f1a9-476c-9e39-42185b05cfe2",
-            "text": "The paper indicates that quantitative easing (QE) has low effects on economic growth, suggesting that it does not significantly stimulate the economy as intended.",
-            "is_support": true
-        },
-        {
-            "uuid": "647f57df-18a9-4ece-a564-13d39fdabe22",
-            "text": "Research shows that the speculative behavior induced by artificially low interest rates, a consequence of QE, can lead to asset bubbles, which distort investment priorities.",
-            "is_support": true
-        },
-        {
-            "uuid": "22f4ca1b-1d00-48ef-9281-7b510e1e3003",
-            "text": "The study suggests that despite the increase in the monetary base and money supply due to quantitative easing (QE), nominal GDP has not increased at a corresponding rate, indicating a decrease in money velocity and an over-reliance on speculation, which could exacerbate public debt levels.",
-            "is_support": true
-        },
-        {
-            "uuid": "7dcbb3ba-8c6b-4983-bdd3-2f8d75969110",
-            "text": "The study indicates that the interest elasticity of output has diminished, suggesting that monetary policy, including quantitative easing (QE), has lost its direct effect on economic activity, thus implying that it does not encourage sustainable growth and can lead to excessive risk-taking.",
-            "is_support": true
-        },
-        {
-            "uuid": "7775aec9-9ca6-47f7-86c0-4b39b649b532",
-            "text": "The authors point out that the speculative behavior induced by artificially low interest rates is a main weakness of QE, suggesting that this can result in distorted investment priorities and potential asset bubbles.",
+            "uuid": "54e3b379-662c-4066-b3fb-b036a6682dc6",
+            "text": "Quantitative Easing (QE) has been shown to have a low effect on economic growth, primarily due to the disruptive factors of securitization and liquidity traps, indicating its limited efficacy in promoting long-term economic stability.",
             "is_support": false
         },
         {
-            "uuid": "c1983345-a0f4-4172-9f66-8a95236de109",
-            "text": "The study indicates that the interest elasticity of output has diminished, suggesting that monetary policy, including quantitative easing (QE), has lost its direct effect on economic activity, thus implying that it does not encourage sustainable growth and can lead to excessive risk-taking.",
+            "uuid": "04a2eb2f-3ab9-4954-9c28-a827bf7c4703",
+            "text": "The study highlights that QE primarily creates distributional effects that benefit banks rather than households, thereby exacerbating inequality without significantly contributing to economic growth.",
             "is_support": false
         },
         {
-            "uuid": "f62d177a-8055-4a43-8213-c42f2fb04fc7",
-            "text": "The analysis indicates that while the monetary base and money supply increased due to quantitative easing (QE), nominal GDP did not keep pace, suggesting that this policy may encourage speculative behavior rather than productive investment, which could lead to increased public debt levels.",
-            "is_support": false
-        },
-        {
-            "uuid": "d13832d8-9905-47a0-ab3c-0f66618229e8",
-            "text": "The authors propose that instead of relying on QE that expands public debt, the Federal Reserve should consider direct funding for households to mitigate economic issues, implying that current QE strategies could burden future generations with debt.",
-            "is_support": false
-        },
-        {
-            "uuid": "317a3cd3-6891-4a6a-9cbe-7841a353f190",
-            "text": "The authors argue that the Federal Reserve's expansionary monetary policy, including QE, results in unequal distribution of benefits, which may lead to higher public debt levels as measures like helicopter money contribute to future liabilities without addressing structural economic issues.",
+            "uuid": "f3afdbb8-c757-47a4-af70-769c42a10009",
+            "text": "Quantitative Easing (QE) has been shown to have a weak effect on nominal GDP growth, indicating that it fails to stimulate significant economic activity, which counters the notion that it leads to currency devaluation for long-term growth.",
             "is_support": true
         },
         {
-            "uuid": "cc46543e-7519-4817-96e4-43b1ff546d71",
-            "text": "During the Great Recession, the Federal Reserve's measures, including QE, resulted in banks restoring profitability without significantly enhancing economic activity, indicating that such policies may contribute to a misallocation of resources and excessive risk among investors.",
+            "uuid": "ff553a16-442c-46a8-9e49-835345b603bd",
+            "text": "The study highlights that the expansion of the monetary base through QE does not effectively increase money supply if banks lack the appetite for risk, implying that QE may not distort market signals or discourage savings as suggested.",
             "is_support": true
         },
         {
-            "uuid": "eb380dbc-7b71-43cd-9c8d-07f65fef755f",
-            "text": "The study indicates that quantitative easing (QE) has a low effect on economic growth, implying that it does not significantly enhance long-term growth, which can lead to misallocation of resources and contribute to asset bubbles.",
+            "uuid": "67a2fa3b-d690-4b5a-9696-cb6266a8c689",
+            "text": "The research highlights that while QE aims to stimulate the economy, it primarily creates distributional effects that favor banks over households, contributing to increased inequality rather than sustainable economic growth.",
+            "is_support": true
+        },
+        {
+            "uuid": "d49f9e7c-6b3f-473e-9940-816aa3f8fcbe",
+            "text": "The analysis indicates that the expansion of the monetary base through Quantitative Easing has led to disproportionate benefits for banks rather than fostering economic growth or encouraging necessary structural reforms in the economy.",
+            "is_support": true
+        },
+        {
+            "uuid": "d967ac41-dc1f-4283-ac6d-600e05f9f8bd",
+            "text": "The study highlights that monetary policy alone, particularly during periods of Quantitative Easing, has proven ineffective in stimulating economic activity due to banks' low-risk strategies, suggesting that reliance on such policies undermines the need for structural reforms.",
+            "is_support": true
+        },
+        {
+            "uuid": "83f1c335-c094-4ef0-adf1-db1021a36a87",
+            "text": "The research indicates that monetary base expansion through QE cannot increase money supply if banks lack risk appetite, implying that it does not distort market signals or discourage savings as suggested.",
+            "is_support": false
+        },
+        {
+            "uuid": "cbeb626f-67dd-4ebc-a8a8-3a98a3196f9e",
+            "text": "Quantitative Easing (QE) has shown to have a weak impact on nominal GDP growth and money supply, suggesting that it does not effectively lead to currency devaluation, contradicting the claim that it promotes long-term economic growth.",
+            "is_support": false
+        },
+        {
+            "uuid": "d84d6546-09f5-4a98-955b-2e3ab5499b34",
+            "text": "Quantitative Easing (QE) due to its low interest rates can lead to speculative behavior and asset bubbles, as indicated by the study's findings on the weak direct effect of QE on economic growth.",
+            "is_support": true
+        },
+        {
+            "uuid": "e6cd0cde-d05c-4852-a181-874e31154498",
+            "text": "The research indicates that the expansion of the monetary base during Quantitative Easing has resulted in unequal distribution of benefits, reinforcing the reliance on monetary policy rather than promoting necessary economic changes.",
             "is_support": false
         }
     ],
     "relations": [
         [
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12",
             "SUPPORTED_BY",
-            "cc46543e-7519-4817-96e4-43b1ff546d71"
+            "ff553a16-442c-46a8-9e49-835345b603bd"
         ],
         [
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
-            "REFUTED_BY",
-            "4e57432a-417c-43d8-b0b6-4df7a5c554d6"
-        ],
-        [
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
-            "REFUTED_BY",
-            "f62d177a-8055-4a43-8213-c42f2fb04fc7"
-        ],
-        [
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
-            "REFUTED_BY",
-            "d13832d8-9905-47a0-ab3c-0f66618229e8"
-        ],
-        [
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
+            "e5405db8-d6b3-4376-b4b5-988019115bd6",
             "SUPPORTED_BY",
-            "22f4ca1b-1d00-48ef-9281-7b510e1e3003"
+            "d967ac41-dc1f-4283-ac6d-600e05f9f8bd"
         ],
         [
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
-            "SUPPORTED_BY",
-            "317a3cd3-6891-4a6a-9cbe-7841a353f190"
-        ],
-        [
-            "540f5c18-d540-4596-b27f-da8e1445203c",
-            "SUPPORTED_BY",
-            "647f57df-18a9-4ece-a564-13d39fdabe22"
-        ],
-        [
-            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12",
             "REFUTED_BY",
-            "7775aec9-9ca6-47f7-86c0-4b39b649b532"
+            "83f1c335-c094-4ef0-adf1-db1021a36a87"
         ],
         [
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12",
             "SUPPORTED_BY",
-            "7dcbb3ba-8c6b-4983-bdd3-2f8d75969110"
+            "f3afdbb8-c757-47a4-af70-769c42a10009"
         ],
         [
-            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
             "SUPPORTED_BY",
-            "d58fb1f1-f1a9-476c-9e39-42185b05cfe2"
+            "d84d6546-09f5-4a98-955b-2e3ab5499b34"
         ],
         [
-            "540f5c18-d540-4596-b27f-da8e1445203c",
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
             "REFUTED_BY",
-            "eb380dbc-7b71-43cd-9c8d-07f65fef755f"
+            "54e3b379-662c-4066-b3fb-b036a6682dc6"
         ],
         [
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
+            "SUPPORTED_BY",
+            "67a2fa3b-d690-4b5a-9696-cb6266a8c689"
+        ],
+        [
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
             "REFUTED_BY",
-            "c1983345-a0f4-4172-9f66-8a95236de109"
+            "04a2eb2f-3ab9-4954-9c28-a827bf7c4703"
+        ],
+        [
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12",
+            "REFUTED_BY",
+            "cbeb626f-67dd-4ebc-a8a8-3a98a3196f9e"
+        ],
+        [
+            "e5405db8-d6b3-4376-b4b5-988019115bd6",
+            "SUPPORTED_BY",
+            "d49f9e7c-6b3f-473e-9940-816aa3f8fcbe"
+        ],
+        [
+            "e5405db8-d6b3-4376-b4b5-988019115bd6",
+            "REFUTED_BY",
+            "e6cd0cde-d05c-4852-a181-874e31154498"
+        ],
+        [
+            "e5405db8-d6b3-4376-b4b5-988019115bd6",
+            "REFUTED_BY",
+            "1ebd3ee1-4276-447b-aab7-482b141c766a"
         ]
     ],
     "claim_similarity": [
         [
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
-            0.903166258449103,
-            "540f5c18-d540-4596-b27f-da8e1445203c"
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12",
+            0.7874731367820434,
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac"
         ],
         [
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5",
-            0.8562492851609614,
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8"
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12",
+            0.7748251689392278,
+            "e5405db8-d6b3-4376-b4b5-988019115bd6"
         ],
         [
-            "540f5c18-d540-4596-b27f-da8e1445203c",
-            0.903166258449103,
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5"
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
+            0.7874731367820434,
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12"
         ],
         [
-            "540f5c18-d540-4596-b27f-da8e1445203c",
-            0.848613143016957,
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8"
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac",
+            0.7666212335315439,
+            "e5405db8-d6b3-4376-b4b5-988019115bd6"
         ],
         [
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
-            0.8562492851609614,
-            "295063e0-c5ed-4f3b-a739-98d5c7de88f5"
+            "e5405db8-d6b3-4376-b4b5-988019115bd6",
+            0.7666212335315439,
+            "2a9e6689-3c5f-42df-94b8-643b3cb23dac"
         ],
         [
-            "3ff7fa66-2f70-42d1-acd5-8c587642c9f8",
-            0.848613143016957,
-            "540f5c18-d540-4596-b27f-da8e1445203c"
+            "e5405db8-d6b3-4376-b4b5-988019115bd6",
+            0.7748251689392278,
+            "940ce98c-665d-4c9f-a12c-11a7f9261e12"
         ]
     ]
 }

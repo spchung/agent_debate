@@ -37,6 +37,14 @@ class BasicHistoryManager:
             result.append(msg.to_dict(agent_perspective=agent_perspective))
         return result
 
+    def get_messages_of_agent(self, agent_perspective: AgnetConfig) -> list[dict]:
+        messages = self.messages.copy()
+        result = []
+        for msg in messages:
+            if msg.agent_config.id == agent_perspective.id:
+                result.append(msg.to_dict(agent_perspective=agent_perspective))
+        return result
+
     def get_last_message(self) -> MessageModel | None:
         agent_mesages = [msg for msg in self.messages if msg.agent_config.type != 'moderator']
         if len(agent_mesages) == 0:

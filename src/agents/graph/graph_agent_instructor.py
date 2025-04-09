@@ -109,10 +109,8 @@ class GraphDebateAgnet:
 
             # process claims from each chunk
             for claim in claim_res.claims:
-                logger.info(f"PROCESSING Claim: {claim}")
                     
                 claim_node = kg.add_claim(claim)
-                
                 evidence_res = evidence_extraction_agent.run(
                     EvidenceExtractionInputSchema(
                         claim=claim,
@@ -162,8 +160,10 @@ class GraphDebateAgnet:
         
         # 3. claim already used in previous rounds
         if claim.used:
+            logger.info(f"Claim {claim.uuid} already used, finding next most relative claim")
             # find next most relative claim
             claim = self.kg.find_next_relative_claim(claim)
+            logger.info(f"now using claim {claim.uuid}")
 
             if not claim:
                 return None, None, None
@@ -193,26 +193,45 @@ class GraphDebateAgnet:
         return "\n".join(evidence_list)
 
     def __get_sys_message(self, opponent_msg=None, is_final=False):
+        
         if is_final:
+            self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)
+            # Extract previous arguments
+            my_previous_arguments = []
+            for msg in self_messages:
+                if 'role' in msg and msg['role'] == 'assistant':
+                    my_previous_arguments.append(msg['content'])
+            
+            previous_args_text = ""
+            if my_previous_arguments:
+                previous_args_text = "\n".join(my_previous_arguments)
+                
             return { 'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
                     
-                You are a debate agent that take a position on the presented topic. 
+                You are a skilled debate agent taking a position on the presented topic. 
                 You are arguing {self.stance} the topic: '{self.topic}'.
-                You are on the final round of the debate.
+                You are on the final round of the debate and need to create a compelling summary.
 
                 INTERNAL ASSISTANT STEPS
                 
-                Analyze the topic and your previous claims
-                List out each claim you made in the debate.
-                Then summarize your position on the topic.
-
+                1. Carefully analyze all your previous statements in the debate, provided below.
+                2. Identify 4-5 key arguments and claims you've consistently made throughout the debate.
+                3. Extract the strongest evidence and points from your previous arguments.
+                4. Organize these into a logical, coherent structure that reinforces your position.
+                5. Create a summary that presents your stance as a unified, well-reasoned argument.
 
                 OUTPUT INSTRUCTIONS
 
-                Use bullet points to list out each claim you made in the debate.
-                Write in full sentences.
+                1. Begin with "In conclusion, I firmly stand by the assertion that..." followed by your position.
+                2. Use bullet points to list out each key claim you've made in the debate.
+                3. Format each bullet point with bold headers that capture the essence of each argument.
+                4. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
+                5. End with a brief "In summary" paragraph that ties everything together.
+                6. Ensure your summary presents a logical, interconnected narrative supporting your position.
 
+                YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
+                {previous_args_text}
                 """}
         
         # if is the first round, select the first claim
@@ -221,42 +240,70 @@ class GraphDebateAgnet:
         else:
             claim, evidence, counter_evidence = self.__select_claim_from_kg(opponent_msg['content'])
 
+        # Get the debate history to provide context
+        message_history = self.memory_manager.to_msg_array(self.agent_config)
+        my_previous_arguments = []
+        for msg in message_history:
+            if msg.get('role') == 'assistant':
+                my_previous_arguments.append(msg.get('content', ''))
+        
+        previous_args_text = ""
+        if my_previous_arguments:
+            previous_args_text = "YOUR PREVIOUS ARGUMENTS:\n" + "\n".join(my_previous_arguments[-2:] if len(my_previous_arguments) > 2 else my_previous_arguments)
+
         return { 'role': 'system', 'content': f"""
             IDENTITY and PURPOSE
                     
-            You are a debate agent that take a position on the presented topic. 
-            You are arguing {self.stance} the topic: '{self.topic}'.
-            You have access to a claim, supporting evidence, and counter evidence from the knowledge base.
+            You are a skilled debate agent arguing {self.stance} the topic: '{self.topic}'.
+            You are participating in a coherent, ongoing debate where each argument builds upon previous points.
+            You have access to a claim, supporting evidence, and counter evidence from your knowledge base.
+            
+            DEBATE STRATEGY
+            
+            1. Build a cohesive narrative throughout the debate - your arguments should connect to each other
+            2. Directly address and counter your opponent's most recent points using specific evidence
+            3. Incorporate your selected claim and supporting evidence to strengthen your position
+            4. Acknowledge counter evidence but rebut it effectively to demonstrate critical thinking
+            5. Reference your previous arguments to show continuity and logical progression
+            6. Be strategic - anticipate counter-arguments and address them preemptively
             
             INTERNAL ASSISTANT STEPS
 
-            Analyze the topic and the previous conversation and make sure you dunderstand the current progress of the debate.
-            Pay extra attention to the last message from your opponent. As this the the main point you will be responding to.
-            Breakdowb the key points from the last opponent message and fomulate your response to refute those points.
-            USe the provided claim and evidence in your response to make your argument more convincing.
+            1. Carefully analyze the entire debate history and identify the main thread of arguments
+            2. Pay special attention to your opponent's most recent message and extract their key points
+            3. Consider how your new claim relates to or extends your previous arguments
+            4. Review the counter evidence and prepare thoughtful rebuttals to it
+            5. Formulate a response that maintains your position while directly addressing opponent's points
+            6. Integrate the provided claim and supporting evidence to strengthen your argument
+            7. Address and refute aspects of the counter evidence to demonstrate critical thinking
             
             OUTPUT INSTRUCTIONS
 
-            Do not begin the response with the claim, paraphrase the claim in your own words.
-            Be sure to include the provided claim and evidence in your response.
-            Avoid using beginning phrases already used in the previous rounds.
-            Output all information in one paragraph. 
-            Avoid transitional phrases like "in addition" or "furthermore".
-            Do not summarize or repeat previous points.
-            Limit your response to 2 to 4 sentences.
+            - Create a cohesive, persuasive response that builds on your previous arguments
+            - Directly address specific points raised by your opponent, citing evidence
+            - Acknowledge some aspect of the counter evidence but provide a substantive rebuttal to it
+            - Integrate (don't just repeat) the provided claim and supporting evidence
+            - Maintain a consistent argumentative stance throughout the debate
+            - Use clear, concise language in a natural conversational style
+            - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
+            - If an abbreviation has been used in the previous messages, use the same abbreviation and do not repeat the full form
+            - Aim for 4-6 sentences that form a cohesive paragraph
+
+            DEBATE CONTEXT:
+            {previous_args_text}
 
             LAST OPPONENT MESSAGE:
-            {opponent_msg['content']}
+            {opponent_msg['content'] if opponent_msg else ""}
             
-            CLAIM:
+            CLAIM TO INCORPORATE:
             {claim.text}
 
             SUPPORTING EVIDENCE:
             {self.__format_evidence_list(evidence)}
 
+            COUNTER EVIDENCE TO ADDRESS AND REBUT:
+            {self.__format_evidence_list(counter_evidence)}
             """
-            # COUNTER EVIDENCE:
-            # {self.__format_evidence_list(counter_evidence)}
         }   
 
     def next_round_response(self, is_final=False):
@@ -269,7 +316,7 @@ class GraphDebateAgnet:
             model="gpt-4o-mini",
             messages=message_history,
             response_model=ResponseModel,
-            temperature=1.0
+            temperature=0.8
         ),
 
         if isinstance(resp, ResponseModel):
