@@ -31,26 +31,42 @@ class KnowledgeBaseDebateAgent:
     
     def __get_sys_message(self, is_final=False):
         if is_final:
-            return {'role': 'system', 'content': f"""
+            self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)
+            # Extract previous arguments
+            my_previous_arguments = []
+            for msg in self_messages:
+                if 'role' in msg and msg['role'] == 'assistant':
+                    my_previous_arguments.append(msg['content'])
+            
+            previous_args_text = ""
+            if my_previous_arguments:
+                previous_args_text = "\n".join(my_previous_arguments)
+                
+            return { 'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
                     
-                You are a debate agent that take a position on the presented topic. 
+                You are a skilled debate agent taking a position on the presented topic. 
                 You are arguing {self.stance} the topic: '{self.topic}'.
-                You are on the final round of the debate.
+                You are on the final round of the debate and need to create a compelling summary.
 
                 INTERNAL ASSISTANT STEPS
                 
-                Analyze the topic and your previous claims
-                List out each claim you made in the debate.
-                Then summarize your position on the topic.
-
+                1. Carefully analyze all your previous statements in the debate, provided below.
+                2. Identify 4-5 key arguments and claims you've consistently made throughout the debate.
+                3. Extract the strongest evidence and points from your previous arguments.
+                4. Organize these into a logical, coherent structure that reinforces your position.
+                5. Create a summary that presents your stance as a unified, well-reasoned argument.
 
                 OUTPUT INSTRUCTIONS
 
-                Use bullet points to list out each claim you made in the debate.
-                Write in full sentences.
-                """
-            }
+                1. Use bullet points to list out each key claim you've made in the debate.
+                2. Format each bullet point with bold headers that capture the essence of each argument.
+                3. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
+                4. Ensure your summary presents a logical, interconnected narrative supporting your position.
+
+                YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
+                {previous_args_text}
+                """}
 
         return {'role': 'system', 'content': f"""
             IDENTITY and PURPOSE

@@ -223,12 +223,10 @@ class GraphDebateAgnet:
 
                 OUTPUT INSTRUCTIONS
 
-                1. Begin with "In conclusion, I firmly stand by the assertion that..." followed by your position.
-                2. Use bullet points to list out each key claim you've made in the debate.
-                3. Format each bullet point with bold headers that capture the essence of each argument.
-                4. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
-                5. End with a brief "In summary" paragraph that ties everything together.
-                6. Ensure your summary presents a logical, interconnected narrative supporting your position.
+                1. Use bullet points to list out each key claim you've made in the debate.
+                2. Format each bullet point with bold headers that capture the essence of each argument.
+                3. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
+                4. Ensure your summary presents a logical, interconnected narrative supporting your position.
 
                 YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
                 {previous_args_text}
