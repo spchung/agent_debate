@@ -1,5 +1,6 @@
 ## atomic agents for specific tasks
 import instructor
+from typing import Literal
 from typing import List
 from pydantic import Field
 from src.llm.client import llm
@@ -56,5 +57,40 @@ claim_inquery_generator_agent = BaseAgent(
         system_prompt_generator=claim_inquery_generator_prompt,
         input_schema=ClaimInqueryGeneratorInputSchema,
         output_schema=ClaimInqueryGeneratorOutputSchema
+    )
+)
+
+## 1. Invididual document summarization with opinionated stance
+class TitleAndAuthorExtractorInputSchema(BaseIOSchema):
+    """ TextSummarizerInputSchema """
+    text: str = Field(None, title="The text to be processed")
+
+class TitleAndAuthorExtractorOutputSchema(BaseIOSchema):
+    """ TextSummarizerOutputSchema """
+    author: str = Field(None, title="The author of the text")
+    title: str = Field(None, title="The title of the text")
+
+
+title_and_author_extractor_prompt = SystemPromptGenerator(
+    background=[
+        'Your task is to extract the title and author of the text.',
+    ],
+    steps=[
+        'Read the beginning of the text carefully.',
+    ],
+    output_instructions=[
+        'Make sure to extract the full name of the author.',
+        'Make sure to extract the title of the text.',
+    ]
+)
+
+title_and_author_extractor_agent = BaseAgent(
+    BaseAgentConfig(
+        client=instructor.from_openai(llm),
+        model='gpt-4o-mini',
+        temperature=0,
+        system_prompt_generator=title_and_author_extractor_prompt,
+        input_schema=TitleAndAuthorExtractorInputSchema,
+        output_schema=TitleAndAuthorExtractorOutputSchema
     )
 )

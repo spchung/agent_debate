@@ -4,7 +4,6 @@ from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig
 from src.agents.kb.kb_agent_instructor import KnowledgeBaseDebateAgent
 
-
 shared_mem = BasicHistoryManager()
 
 moderator = AgnetConfig(id="moderator", name="Moderator", type="moderator")

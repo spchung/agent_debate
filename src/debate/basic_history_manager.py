@@ -17,7 +17,7 @@ class BasicHistoryManager:
     
     def register_agent_debator(self, debator_config: AgnetConfig):
         if debator_config.id in self.agents:
-            raise ValueError("Agent is already registered")
+            raise ValueError(f"Agent '{debator_config.id}' is already registered")
         
         self.agents[debator_config.id] = debator_config.name
     

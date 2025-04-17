@@ -13,7 +13,6 @@ from typing import Literal
 from src.llm.client import llm
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig, ResponseModel
-from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 from src.agents.planning.workers import get_kb_with_stance_as_dict
 
 client = instructor.from_openai(llm)
@@ -37,6 +36,10 @@ class PlanningDebateAgent:
 
         # planned kb 
         self.planned_kb = get_kb_with_stance_as_dict(kb_path, topic, stance) # List[dict]
+
+        # DEBUG - dump planned kb
+        with open(f"planned_kb/{self.agent_config.name}.json", "w") as f:
+            json.dump(self.planned_kb, f, indent=4)
     
     def __get_sys_message(self, is_final=False):
         if is_final:
@@ -83,26 +86,36 @@ class PlanningDebateAgent:
             You are a debate agent that take a position on the presented topic. 
             You are arguing {self.stance} the topic: '{self.topic}'.
 
+            DEBATE STRATEGY
+            
+            1. Build a cohesive narrative throughout the debate - your arguments should connect to each other
+            2. Directly address and counter your opponent's most recent points using specific evidence
+            3. Incorporate your selected claim and supporting evidence to strengthen your position
+            4. Acknowledge counter evidence but rebut it effectively to demonstrate critical thinking
+            5. Reference your previous arguments to show continuity and logical progression
+            6. Be strategic - anticipate counter-arguments and address them preemptively
+
             INTERNAL ASSISTANT STEPS
 
-            Analyze the topic and your previous claims.
-            Respond to your opponent's last response first if applicable.
-            Once you have responded to your opponent, consider the key points from the knowledge base as you formulate your response.
-            Your response should either discredit your opponent's claims or support your own claims.
-            Consider the key points from the knowledge base as you formulate your response.
-            Formulate a response that responds to the points made by your oppoenent in the last round if applicable.
+            1. Analyze the topic and your previous claims.
+            2. Respond to your opponent's last response first if applicable.
+            3. Once you have responded to your opponent, consider the key points from the knowledge base as you formulate your response.
+            4. Your response should either discredit your opponent's claims or support your own claims.
+            5. If your response is based on the knowledge base, ensure that you reference the title or author of the source.
+            6. Formulate a response that responds to the points made by your oppoenent in the last round if applicable.
 
             OUTPUT INSTRUCTIONS
 
-            No need to repeat the topic or the last response.
-            Use the key points from the knowledge base to support your response.
-            Use data points and evidence to support your claims if possible.
-            If a source from the knowledge base is used, cite the author name or the title of the source.
-            Output all information in one paragraph. 
-            Do not use transitional phrases like "in addition" or "furthermore".
-            Do not summarize or repeat previous points.
-            Limit your response to 5 to 7 sentences.
-
+            - Create a cohesive, persuasive response that builds on your previous arguments
+            - Directly address specific points raised by your opponent, citing evidence
+            - Acknowledge some aspect of the counter evidence but provide a substantive rebuttal to it
+            - Prioritze a response that draws from the knowledge base
+            - When referencing the knowlege base, cite the author or source of the information
+            - Maintain a consistent argumentative stance throughout the debate
+            - Use clear, concise language in a natural conversational style
+            - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
+            - If an abbreviation has been used in the previous messages, use the same abbreviation and do not repeat the full form
+            - Aim for 3 to 5 sentences that form a cohesive paragraph
 
             KNOWLEDGE BASE
 

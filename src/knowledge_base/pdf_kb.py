@@ -18,6 +18,7 @@ class RetrievedNodeModel(BaseModel):
 
 class QueryResponseModel(BaseModel):
     response: str
+    file_name: str
     source_nodes: List[RetrievedNodeModel]
 
 class RetrieveResponseModel(BaseModel):
@@ -38,29 +39,34 @@ class PdfKnowledgeBase:
         self.query_engine = self.index.as_query_engine(
             response_mode="tree_summarize",
             verbose=True,
-            similarity_top_k=3
+            similarity_top_k=1
         )
     
     def __build_retriever(self):
         self.retriever = self.index.as_retriever(
             retriever_mode="llm",
             verbose=True,
-            similarity_top_k=3
+            similarity_top_k=1
         )
     
     def query(self, query: str):
         response = self.query_engine.query(query)
-        sourse_nodes = []
+        source_nodes = []
         for source_node in response.source_nodes:
+            # print(source_node.node.metadata)
             file_name = source_node.node.metadata['file_name']
-            sourse_nodes.append(RetrievedNodeModel(
+            source_nodes.append(RetrievedNodeModel(
                 node_id=source_node.node_id,
                 score=source_node.score,
                 text=source_node.text,
                 source_file_name=file_name
             ))
         
-        return QueryResponseModel(response=response.response, source_nodes=sourse_nodes)
+        return QueryResponseModel(
+            response=response.response,
+            file_name=response.source_nodes[0].node.metadata['file_name'],
+            source_nodes=source_nodes
+        )
 
     def retrieve(self, query: str):
         nodes =  self.retriever.retrieve(query)

@@ -62,7 +62,7 @@ class BasicDebateAgent:
 
                 1. Use bullet points to list out each key claim you've made in the debate.
                 2. Format each bullet point with bold headers that capture the essence of each argument.
-                3. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
+                3. Under each point, provide 3 to 5 sentences of explanation drawing from your previous statements.
                 4. Ensure your summary presents a logical, interconnected narrative supporting your position.
 
                 YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:

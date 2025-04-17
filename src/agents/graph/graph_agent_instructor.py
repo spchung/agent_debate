@@ -285,7 +285,7 @@ class GraphDebateAgnet:
             - Use clear, concise language in a natural conversational style
             - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
             - If an abbreviation has been used in the previous messages, use the same abbreviation and do not repeat the full form
-            - Aim for 4-6 sentences that form a cohesive paragraph
+            - Aim for 3 to 5 sentences that form a cohesive paragraph
 
             DEBATE CONTEXT:
             {previous_args_text}

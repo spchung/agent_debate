@@ -1,10 +1,13 @@
 import instructor
+import os, json
 from typing import Literal
 from src.llm.client import llm
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig, ResponseModel
 from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 from src.agents.kb.workers import ClaimInqueryGeneratorInputSchema, claim_inquery_generator_agent
+from src.agents.kb.workers import title_and_author_extractor_agent, TitleAndAuthorExtractorInputSchema
+from src.utils.pdf_parser import PDFParser
 # Patch the OpenAI client
 client = instructor.from_openai(llm)
 
@@ -27,9 +30,32 @@ class KnowledgeBaseDebateAgent:
 
         ## knowledge base
         self.kb = PdfKnowledgeBase(kb_path)
-        # self.kb = PdfKnowledgeBase('knowledge_source/quantitative_easing')
+        self.file_to_autor_title_map = self.__build_file_name_to_author_map(kb_path)
     
-    def __get_sys_message(self, is_final=False):
+    def __build_file_name_to_author_map(self, kb_path: str):
+        mmap = {} # file_name -> {author:"", title:""}
+        parser = PDFParser()
+        for file in os.listdir(kb_path):
+            if not file.endswith(".pdf"):
+                continue
+
+            raw_text = parser.pdf_to_text(f"{kb_path}/{file}")
+            cut_raw_text = raw_text[:2000]    
+
+            result = title_and_author_extractor_agent.run(
+                TitleAndAuthorExtractorInputSchema(
+                    text=cut_raw_text
+                )
+            )
+            
+            mmap[file] = {
+                "author": result.author,
+                "title": result.title
+            }
+        
+        return mmap
+    
+    def __get_sys_message(self, is_final=False, context={}):
         if is_final:
             self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)
             # Extract previous arguments
@@ -74,20 +100,42 @@ class KnowledgeBaseDebateAgent:
                 You are a debate agent that take a position on the presented topic. 
                 You are arguing {self.stance} the topic: '{self.topic}'.
 
+                DEBATE STRATEGY
+                
+                1. Build a cohesive narrative throughout the debate - your arguments should connect to each other
+                2. Directly address and counter your opponent's most recent points using specific evidence
+                3. Incorporate your selected claim and supporting evidence to strengthen your position
+                4. Acknowledge counter evidence but rebut it effectively to demonstrate critical thinking
+                5. Reference your previous arguments to show continuity and logical progression
+                6. Be strategic - anticipate counter-arguments and address them preemptively
+
                 INTERNAL ASSISTANT STEPS
                 
-                Analyze the topic and the previous response from your opponent.
-                Use the information provided to generate a response.
-                Identify claims from your opponent's last response and address them directly
+                1. Analyze the topic and your previous claims.
+                2. Respond to your opponent's last response first if applicable.
+                3. Your response should either discredit your opponent's claims or support your own claims.
+                4. You must use the 'keypoint' provided in the knowledge base to support your claims.
+                5. Make sure to include the source (title or author) of the keypoint in your response.
+                5. Formulate a response that responds to the points made by your oppoenent in the last round if applicable.
 
 
                 OUTPUT INSTRUCTIONS
 
-                No need to repeat the topic or the last response.
-                Make one point at a time. Limit each response to one point. Each point should only be one to two sentences.
-                Avoid using bullet points or lists. Write in full sentences.
-                Communicate in a conversational tone.
-                Do not summarize or repeat previous points.
+                - Create a cohesive, persuasive response that builds on your previous arguments
+                - Directly address specific points raised by your opponent, citing evidence
+                - Acknowledge some aspect of the counter evidence but provide a substantive rebuttal to it
+                - Prioritze a response that draws from the knowledge base
+                - When referencing the knowlege base, cite the author or source of the information
+                - Maintain a consistent argumentative stance throughout the debate
+                - Use clear, concise language in a natural conversational style
+                - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
+                - If an abbreviation has been used in the previous messages, use the same abbreviation and do not repeat the full form
+                - Aim for 3 to 5 sentences that form a cohesive paragraph
+
+                
+                KNOWLEDGE BASE
+
+                {json.dumps(context)}
             """
         }
     
@@ -106,16 +154,18 @@ class KnowledgeBaseDebateAgent:
         questions = claim_inquery_generator_res.questions
         
         # retrieval
-        retrueved_res = self.kb.query(questions[0])
-        context_message = {
-            "role": "system",
-            "content": f"Consider the following information when responding to the user:\n\n{retrueved_res.response}"
-        }
+        retrieval = self.kb.query(questions[0])
+        source = self.file_to_autor_title_map[retrieval.file_name]
+        retrieval_response = retrieval.response
         
-        sys_msg = self.__get_sys_message(is_final=is_final)
+        context_dict = {
+            "keypoint": retrieval_response,
+            "source": source
+        }
+
+        sys_msg = self.__get_sys_message(is_final=is_final, context=context_dict)
         message_history = self.memory_manager.to_msg_array(self.agent_config)
         message_history.insert(0, sys_msg)
-        message_history.insert(1, context_message)
         
         resp = client.chat.completions.create(
             model="gpt-4o-mini",
