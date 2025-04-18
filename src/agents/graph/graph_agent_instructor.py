@@ -78,7 +78,7 @@ class GraphDebateAgnet:
         doc_raw_text = self.pdf_parser.pdf_to_text(file_path)
 
         ## get author and title
-        cut_raw_text = doc_raw_text[:2000]
+        cut_raw_text = doc_raw_text[:3000]
         title_author_res = title_and_author_extractor_agent.run(
             TitleAndAuthorExtractorInputSchema(
                 text=cut_raw_text
@@ -306,6 +306,9 @@ class GraphDebateAgnet:
             {self.__format_evidence_list(counter_evidence)}
             """
         }   
+    
+    def describe(self):
+        return f"Graph Debate Agent for topic: {self.topic} with stance: {self.stance}"
 
     def next_round_response(self, is_final=False):
         message_history = self.memory_manager.to_msg_array(self.agent_config)

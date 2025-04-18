@@ -60,10 +60,11 @@ class BasicDebateAgent:
 
                 OUTPUT INSTRUCTIONS
 
-                1. Use bullet points to list out each key claim you've made in the debate.
-                2. Format each bullet point with bold headers that capture the essence of each argument.
-                3. Under each point, provide 3 to 5 sentences of explanation drawing from your previous statements.
-                4. Ensure your summary presents a logical, interconnected narrative supporting your position.
+                - Use bullet points to list out each key claim you've made in the debate.
+                - Format each bullet point with bold headers that capture the essence of each argument.
+                - Under each point, provide 3 to 5 sentences of explanation drawing from your previous statements.
+                - Ensure your summary presents a logical, interconnected narrative supporting your position.
+                - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
 
                 YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
                 {previous_args_text}
@@ -91,6 +92,12 @@ class BasicDebateAgent:
                 Do not summarize or repeat previous points.
             """
         }
+
+    def debate_identifier(self):
+        return f"basic_{self.stance}"
+
+    def describe(self):
+        return f"Basic Debate Agent: {self.agent_config.name} - {self.topic} - {self.stance}"
 
     def next_round_response(self, is_final=False):
         sys_msg = self.__get_sys_message(is_final=is_final)

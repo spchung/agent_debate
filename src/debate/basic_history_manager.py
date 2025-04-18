@@ -8,6 +8,11 @@ class BasicHistoryManager:
         self.messages = []  # for List[Message]
         self.raw_messages_list = []
 
+    def reset(self):
+        self.history = []
+        self.moderator_id = None
+        self.agents = {}
+
     def register_agent_moderator(self, moderator_config: AgnetConfig):
         if self.moderator_id:
             raise ValueError("Moderator is already registered")

@@ -41,6 +41,9 @@ class PlanningDebateAgent:
         with open(f"planned_kb/{self.agent_config.name}.json", "w") as f:
             json.dump(self.planned_kb, f, indent=4)
     
+    def describe(self):
+        return f"Planning agent for topic: {self.topic} with stance: {self.stance}"
+
     def __get_sys_message(self, is_final=False):
         if is_final:
             self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)

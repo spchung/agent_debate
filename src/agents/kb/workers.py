@@ -70,7 +70,6 @@ class TitleAndAuthorExtractorOutputSchema(BaseIOSchema):
     author: str = Field(None, title="The author of the text")
     title: str = Field(None, title="The title of the text")
 
-
 title_and_author_extractor_prompt = SystemPromptGenerator(
     background=[
         'Your task is to extract the title and author of the text.',

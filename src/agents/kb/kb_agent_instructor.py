@@ -32,6 +32,9 @@ class KnowledgeBaseDebateAgent:
         self.kb = PdfKnowledgeBase(kb_path)
         self.file_to_autor_title_map = self.__build_file_name_to_author_map(kb_path)
     
+    def describe(self):
+        return f"Knowledge Base agent for topic: {self.topic} with stance: {self.stance}"
+
     def __build_file_name_to_author_map(self, kb_path: str):
         mmap = {} # file_name -> {author:"", title:""}
         parser = PDFParser()
@@ -139,6 +142,9 @@ class KnowledgeBaseDebateAgent:
             """
         }
     
+    def debate_identifier(self):
+        return f"kb_{self.stance}"
+
     def next_round_response(self, is_final=False):
         # process last response
         opponent_last_msg = self.memory_manager.get_last_message()
