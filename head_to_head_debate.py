@@ -4,6 +4,7 @@ from src.shared.models import AgnetConfig
 from src.agents.kb.kb_agent_instructor import KnowledgeBaseDebateAgent
 from src.agents.planning.palnning_agent_instructor import PlanningDebateAgent
 from src.agents.basic.basic_agent_instructor import BasicDebateAgent
+from src.agents.graph.graph_agent_instructor import GraphDebateAgnet
 
 shared_mem = BasicHistoryManager()
 moderator = AgnetConfig(id="moderator", name="Moderator", type="moderator")
@@ -23,20 +24,30 @@ agent_1 = PlanningDebateAgent(
 )
 
 # basic - for
-# agent_2 = BasicDebateAgent(
-#     topic=topic,
-#     stance="for",
-#     agent_config=AgnetConfig(id="basic_for", name="Basic_For_AI_Regulation"),
-#     memory_manager=shared_mem
-# )
+agent_temp = BasicDebateAgent(
+    topic=topic,
+    stance="for",
+    agent_config=AgnetConfig(id="basic_for", name="Basic_For_AI_Regulation"),
+    memory_manager=shared_mem
+)
 
 # kb - for 
-agent_2 = KnowledgeBaseDebateAgent(
+agent_3 = KnowledgeBaseDebateAgent(
     topic=topic,
     stance="for",
     agent_config=AgnetConfig(id="kb_for", name="KB_For_AI_Regulation"),
     memory_manager=shared_mem,
     kb_path='knowledge_source/ai_regulation',
+)
+
+# graph
+agent_2 = GraphDebateAgnet(
+    topic=topic,
+    stance="for",
+    agent_config=AgnetConfig(id="graph_for", name="Graph_For_AI_Regulation"),
+    memory_manager=shared_mem,
+    kb_path='knowledge_source/ai_regulation',
+    # persist_kg_path='knowledge_graphs/agent_1_kg.json'
 )
 
 turns = lim = 3

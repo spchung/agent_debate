@@ -16,6 +16,7 @@ from atomic_agents.lib.components.system_prompt_generator import SystemPromptGen
 from src.utils.embedding import get_openai_embedding, cosine_similarity
 from llama_index.core.schema import TextNode
 from src.utils.in_mem_vector_store import InMemoryVectorStore
+from src.agents.kb.workers import TitleAndAuthorExtractorOutputSchema
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
@@ -35,7 +36,6 @@ class ResourceClaimExtractionInputSchema(BaseIOSchema):
 class ResourceClaimExtractionOutputSchema(BaseIOSchema):
     """ ResourceClaimExtractionOutputSchema """
     claims: List[str] = Field(None, title="The claims generated from the resource")
-
 
 def get_claim_extraction_agent(num_of_claims=3) -> List[str]:
     resource_claim_extraction_prompt = SystemPromptGenerator(
@@ -66,8 +66,6 @@ def get_claim_extraction_agent(num_of_claims=3) -> List[str]:
             output_schema=ResourceClaimExtractionOutputSchema
         )
     )
-
-    # run the agent    
 
 '''
 2. evidence extraction agent 
@@ -126,11 +124,13 @@ def get_evidence_extraction_agent(num_of_evidence=3):
     3. claim -similar_to-> claim (weighted)
 '''
 class ClaimNode():
-    def __init__(self, claim, uuid=None):
+    def __init__(self, claim, uuid=None, author=None, title=None):
         self.uuid = str(uuid4()) if uuid is None else uuid
         self.text = claim
         self.embedding = get_openai_embedding(claim)
         self.used = False
+        self.author = author
+        self.title = title
     
     def mark_used(self):
         self.used = True
@@ -157,9 +157,16 @@ class ClaimNode():
         return {
             'uuid': self.uuid,
             'text': self.text,
-            # 'embedding': self.embedding
         }
     
+    def as_cited_text_json(self):
+        d = {
+            'text': self.text,
+            'author': self.author,
+            'title': self.title
+        }
+        return json.dumps(d)
+
     def __repr__(self):
         return f"ClaimNode(uuid={self.uuid}, text={self.text})"
         
@@ -252,11 +259,18 @@ class DebateKnowledgeGraph:
         
         return result_claim
     
-    def add_claim(self, claim: str, uuid:str=None) -> ClaimNode | None:
-        claim_node = ClaimNode(claim, uuid=uuid)
+    def add_claim(self, claim: str, uuid:str=None, title_auth_res: TitleAndAuthorExtractorOutputSchema=None) -> ClaimNode | None:
+        claim_node = ClaimNode(
+            claim, 
+            uuid=uuid, 
+            author=title_auth_res.author if title_auth_res else None, 
+            title=title_auth_res.title if title_auth_res else None
+        )
+
         if claim_node in self.claim_nodes:
             logger.warning(f"Claim: {claim_node} already exists")
             return None
+
         self.claim_nodes.add(claim_node)
         self.claim_node_lookup[claim_node.uuid] = claim_node
         self.__build_corrolation(claim_node)

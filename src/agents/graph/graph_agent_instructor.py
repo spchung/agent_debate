@@ -33,6 +33,7 @@ from src.agents.graph.workers import (
 from src.agents.graph.workers import DebateKnowledgeGraph, ClaimNode, EvidenceNode
 from src.utils.text_split import split_text_by_sentences_and_length
 from src.utils.logger import setup_logger
+from src.agents.kb.workers import title_and_author_extractor_agent, TitleAndAuthorExtractorInputSchema
 
 logger = setup_logger()
 client = instructor.from_openai(llm)
@@ -63,10 +64,7 @@ class GraphDebateAgnet:
             if not file.endswith('.pdf'):
                 continue
 
-            self.__process_document(
-                f"{kb_path}/{file}",
-                kg
-            )
+            self.__process_document(f"{kb_path}/{file}", kg)
         
         # save kg in json form if persist_kg_path is provided
         if persist_kg_path:
@@ -75,22 +73,28 @@ class GraphDebateAgnet:
 
         return kg
 
-    def __process_document(
-            self, 
-            file,
-            kg: DebateKnowledgeGraph
-        ):
-        doc_raw_text = self.pdf_parser.pdf_to_text(file)
+    def __process_document(self, file_path, kg: DebateKnowledgeGraph):
+
+        doc_raw_text = self.pdf_parser.pdf_to_text(file_path)
+
+        ## get author and title
+        cut_raw_text = doc_raw_text[:2000]
+        title_author_res = title_and_author_extractor_agent.run(
+            TitleAndAuthorExtractorInputSchema(
+                text=cut_raw_text
+            )
+        )
         
         # chunking
         chunks = [doc_raw_text]
         if len(doc_raw_text) > 10000:
             chunks = split_text_by_sentences_and_length(doc_raw_text, 10000)
         
-        logger.info(f"Document {file} has been chunked into {len(chunks)} chunks")
+        logger.info(f"Document {file_path} has been chunked into {len(chunks)} chunks")
 
         num_of_claims = 2
         num_of_evidence = 3
+
         if len(chunks) > 1:
             num_of_claims = 1
             num_of_evidence = 2
@@ -109,8 +113,7 @@ class GraphDebateAgnet:
 
             # process claims from each chunk
             for claim in claim_res.claims:
-                    
-                claim_node = kg.add_claim(claim)
+                claim_node = kg.add_claim(claim, title_auth_res=title_author_res)
                 evidence_res = evidence_extraction_agent.run(
                     EvidenceExtractionInputSchema(
                         claim=claim,
@@ -294,7 +297,7 @@ class GraphDebateAgnet:
             {opponent_msg['content'] if opponent_msg else ""}
             
             CLAIM TO INCORPORATE:
-            {claim.text}
+            {claim.as_cited_text_json()}
 
             SUPPORTING EVIDENCE:
             {self.__format_evidence_list(evidence)}
