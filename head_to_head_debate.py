@@ -2,7 +2,7 @@ from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig
 from src.agents.kb.kb_agent_instructor import KnowledgeBaseDebateAgent
-from src.agents.planning.palnning_agent_instructor import PlanningDebateAgent
+from src.agents.planning.planning_agent_instructor import PlanningDebateAgent
 from src.agents.basic.basic_agent_instructor import BasicDebateAgent
 from src.agents.graph.graph_agent_instructor import GraphDebateAgnet
 from src.debate.workers import beautifier_agent, list_available_resources
@@ -21,6 +21,13 @@ basic_agent = BasicDebateAgent(
     agent_config=AgnetConfig(id="basic", name="basic"),
     memory_manager=shared_mem
 )
+
+# basic_agent_2 = BasicDebateAgent(
+#     topic=topic,
+#     stance="fir",
+#     agent_config=AgnetConfig(id="basic_2", name="basic_2"),
+#     memory_manager=shared_mem
+# )
 
 # agent 1 - planing
 planning_agent = PlanningDebateAgent(

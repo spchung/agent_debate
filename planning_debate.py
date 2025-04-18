@@ -3,7 +3,7 @@ from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig
 from src.agents.kb.kb_agent_instructor import KnowledgeBaseDebateAgent
-from src.agents.planning.palnning_agent_instructor import PlanningDebateAgent
+from src.agents.planning.planning_agent_instructor import PlanningDebateAgent
 
 
 shared_mem = BasicHistoryManager()

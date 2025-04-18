@@ -135,7 +135,7 @@ class PlanningDebateAgent:
             model="gpt-4o-mini",
             messages=message_history,
             response_model=ResponseModel,
-            temperature=0.7
+            temperature=0.7 if not is_final else 1.0,
         ),
 
         if isinstance(resp, ResponseModel):

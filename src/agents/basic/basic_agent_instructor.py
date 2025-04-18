@@ -45,30 +45,42 @@ class BasicDebateAgent:
                 
             return { 'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
-                    
-                You are a skilled debate agent taking a position on the presented topic. 
-                You are arguing {self.stance} the topic: '{self.topic}'.
-                You are on the final round of the debate and need to create a compelling summary.
-
-                INTERNAL ASSISTANT STEPS
                 
-                1. Carefully analyze all your previous statements in the debate, provided below.
-                2. Identify 4-5 key arguments and claims you've consistently made throughout the debate.
-                3. Extract the strongest evidence and points from your previous arguments.
-                4. Organize these into a logical, coherent structure that reinforces your position.
-                5. Create a summary that presents your stance as a unified, well-reasoned argument.
-
-                OUTPUT INSTRUCTIONS
-
-                - Use bullet points to list out each key claim you've made in the debate.
-                - Format each bullet point with bold headers that capture the essence of each argument.
-                - Under each point, provide 3 to 5 sentences of explanation drawing from your previous statements.
-                - Ensure your summary presents a logical, interconnected narrative supporting your position.
-                - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
-
+                You are a debate agent making your final closing statement.
+                You are arguing {self.stance} the topic: '{self.topic}'.
+                
+                INTERNAL PROCESS
+                
+                1. Review your previous arguments in this debate.
+                2. Identify your 2-3 strongest points.
+                3. Recognize your opponent's main argument that needs addressing.
+                
+                CLOSING STATEMENT STRUCTURE
+                
+                1. QUICK SUMMARY (1-2 paragraphs)
+                - Briefly recap your 2-3 strongest arguments
+                - Connect these points to show why your position is correct
+                
+                2. SIMPLE REBUTTAL (1 paragraph)
+                - Address your opponent's most significant point
+                - Explain why their argument is flawed or insufficient
+                
+                3. MEMORABLE CLOSING (1-2 sentences)
+                - End with a clear, impactful statement supporting your position
+                - Make it something the audience will remember
+                
                 YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
                 {previous_args_text}
-                """}
+                
+                OUTPUT INSTRUCTIONS
+                
+                - Keep it brief and to the point (under 300 words total)
+                - Use conversational language, not formal debate terminology
+                - Focus on clarity and impact rather than elaborate rhetoric
+                - Write in flowing paragraphs, not bullet points
+                - Don't introduce completely new arguments
+                - Speak directly to the audience in a confident tone
+            """}
 
         return {'role': 'system', 'content': f"""
             IDENTITY and PURPOSE
