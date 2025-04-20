@@ -22,13 +22,6 @@ basic_agent = BasicDebateAgent(
     memory_manager=shared_mem
 )
 
-# basic_agent_2 = BasicDebateAgent(
-#     topic=topic,
-#     stance="fir",
-#     agent_config=AgnetConfig(id="basic_2", name="basic_2"),
-#     memory_manager=shared_mem
-# )
-
 # agent 1 - planing
 planning_agent = PlanningDebateAgent(
     topic=topic,
@@ -39,24 +32,24 @@ planning_agent = PlanningDebateAgent(
 )
 
 # kb - for 
-# kb_agent = KnowledgeBaseDebateAgent(
-#     topic=topic,
-#     stance="for",
-#     agent_config=AgnetConfig(id="kb_for", name="KB_For_AI_Regulation"),
-#     memory_manager=shared_mem,
-#     kb_path='knowledge_source/ai_regulation',
-# )
+kb_agent = KnowledgeBaseDebateAgent(
+    topic=topic,
+    stance="for",
+    agent_config=AgnetConfig(id="kb_for", name="KB_For_AI_Regulation"),
+    memory_manager=shared_mem,
+    kb_path='knowledge_source/ai_regulation',
+)
 
-# # graph
-# graph_agent_config = AgnetConfig(id="graph_for", name="Graph_For_AI_Regulation")
-# graph_agent = GraphDebateAgnet(
-#     topic=topic,
-#     stance="for",
-#     agent_config=graph_agent_config,
-#     memory_manager=shared_mem,
-#     kb_path='knowledge_source/ai_regulation',
-#     persist_kg_path=f'knowledge_graphs/{graph_agent_config.name}.json'
-# )
+# graph
+graph_agent_config = AgnetConfig(id="graph_for", name="Graph_For_AI_Regulation")
+graph_agent = GraphDebateAgnet(
+    topic=topic,
+    stance="for",
+    agent_config=graph_agent_config,
+    memory_manager=shared_mem,
+    kb_path='knowledge_source/ai_regulation',
+    persist_kg_path=f'knowledge_graphs/{graph_agent_config.name}.json'
+)
 
 # head to head debate
 
@@ -66,26 +59,53 @@ planning_agent = PlanningDebateAgent(
 # PLANNING vs all
 
 iterations = [
-    (planning_agent, [ basic_agent ]),
-    # (planning_agent, [ basic_agent, kb_agent, graph_agent ]),
+    # (planning_agent, [ basic_agent ]),
+    (planning_agent, [ basic_agent, kb_agent, graph_agent ]),
     # (kb_agent, [ basic_agent, planning_agent, graph_agent ]),
     # (graph_agent, [ basic_agent, kb_agent, planning_agent ]),
 ]
 
 resources = list_available_resources('knowledge_source/ai_regulation')
 
+def generate_closing(shared_mem: BasicHistoryManager, agent, moderator):
+    # Create temporary separate memory managers for final statements
+    temp_mem = BasicHistoryManager()
+    
+    # Copy all messages to the temporary managers
+    for msg in shared_mem.messages:
+        temp_mem.add_message(msg.agent_config, msg.message)
+    
+    # Register agents in the temporary memory managers
+    temp_mem.register_agent_moderator(moderator)
+    temp_mem.register_agent_debator(agent.agent_config)
+    
+    # Store original memory managers
+    orig_mem = agent.memory_manager
+    
+    # Set temporary memory managers
+    agent.memory_manager = temp_mem
+    
+    # Generate final statements
+    res = agent.next_round_response(is_final=True)
+    
+    # Restore original memory managers
+    agent.memory_manager = orig_mem
+    
+    # Add final statements to the original memory manager
+    shared_mem.add_message(agent.agent_config, res)
+
+    return res
+
 def run_debates(for_agent, opponents:list, turns:int=5):
     for i in range(len(opponents)):
         # set turns
-        turns = lim = turns
+        k_turns = lim = turns
 
         opponent = opponents[i]
 
         # set stance
         for_agent.stance = "for"
         opponent.stance = "against"
-
-        print(f"\n====== debat iteration: {i} ======\n")
 
         log_file_name = f"debate_results/{for_agent.agent_config.name}_vs_{opponent.agent_config.name}.txt"
         log = open(log_file_name, "w")
@@ -107,14 +127,24 @@ def run_debates(for_agent, opponents:list, turns:int=5):
 
         log.write("Debate Transcript: \n")
 
-        # turns
-        while turns > 0:
-            log.write(f"====== Round {lim - (turns - 1)} ======\n\n")
-            res = for_agent.next_round_response(is_final=turns == 1)
-            log.write(f"[for_agent]: {res}\n\n")
-            res = opponent.next_round_response(is_final=turns == 1)
-            log.write(f"[aganist_agent]: {res}\n\n")
-            turns -= 1
+        # k_turns
+        while k_turns > 0:
+            log.write(f"====== Round {lim - (k_turns - 1)} ======\n\n")
+            # For the final round, handle closing statements separately to avoid contamination
+            if k_turns == 1:
+                # # Write to log
+                for_res = generate_closing(shared_mem, for_agent, moderator)
+                log.write(f"[for_agent]: {for_res}\n\n")
+                opponent_res = generate_closing(shared_mem, opponent, moderator)
+                log.write(f"[aganist_agent]: {opponent_res}\n\n")
+            else:
+                # Regular rounds
+                res = for_agent.next_round_response()
+                log.write(f"[for_agent]: {res}\n\n")
+                res = opponent.next_round_response()
+                log.write(f"[aganist_agent]: {res}\n\n")
+            k_turns -= 1
+
         log.close()
 
         raw_text = open(log_file_name, "r").read()
@@ -132,5 +162,7 @@ def run_debates(for_agent, opponents:list, turns:int=5):
 
 
 for for_agent, opponents in iterations:
-    run_debates(for_agent, opponents, turns=4)
-    break
+
+    print("" + for_agent.describe() + " vs " + ", ".join([opponent.describe() for opponent in opponents]))
+    print("\n=====================================\n")
+    run_debates(for_agent, opponents, turns=3)

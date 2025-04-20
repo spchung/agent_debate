@@ -1,0 +1,528 @@
+{
+    "claims": [
+        {
+            "uuid": "b76dd367-9edb-425b-9ae0-839178f8071c",
+            "text": "Self-regulation by the AI industry is preferable for enhancing accountability because it encourages companies to take responsibility for their products and practices, leading to higher standards."
+        },
+        {
+            "uuid": "00bdae26-511c-4842-b082-5a040223e730",
+            "text": "Self-regulation by the AI industry is preferable for innovation because it allows for rapid adaptation to new technologies without bureaucratic delays."
+        },
+        {
+            "uuid": "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            "text": "Self-regulation by the AI industry is preferable for adaptability because it allows for quicker responses to technological advancements without the constraints of government bureaucracy."
+        },
+        {
+            "uuid": "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            "text": "Self-regulation by the AI industry is preferable for fostering innovation because it encourages companies to develop ethical guidelines that evolve with technology."
+        },
+        {
+            "uuid": "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            "text": "Self-regulation by the AI industry is preferable for promoting innovation because it allows companies to quickly adapt to new challenges and opportunities in technology."
+        },
+        {
+            "uuid": "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            "text": "Self-regulation by the AI industry is preferable for flexibility because it enables companies to create tailored solutions that address specific challenges within the rapidly evolving AI landscape."
+        },
+        {
+            "uuid": "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            "text": "Self-regulation by the AI industry is preferable for promoting ethical standards because it empowers experts within the field to establish relevant guidelines that reflect current technological realities."
+        }
+    ],
+    "evidence": [
+        {
+            "uuid": "1a4f7389-75a0-4cc9-9ff3-2a5ab6ed1149",
+            "text": "The implementation of ethical standards in AI design, as encouraged by self-regulation, allows companies to adapt their guidelines in response to technological advancements and societal needs, fostering innovation.",
+            "is_support": true
+        },
+        {
+            "uuid": "c7130906-bc40-447e-9af1-07b6152fcaf1",
+            "text": "The complexity of ethical standards in AI design creates challenges for self-regulation, as varying interpretations can lead to inconsistent ethical guidelines that do not evolve effectively with technology.",
+            "is_support": false
+        },
+        {
+            "uuid": "07e77845-81fe-4a8b-9dfc-0026e97c8192",
+            "text": "The data suggests that preferences for industry self-regulation indicate a belief that the AI industry can address its challenges more swiftly than governmental bodies, which often involve lengthy processes for policy changes.",
+            "is_support": true
+        },
+        {
+            "uuid": "3eedce3a-0a41-4f92-9849-eba2da8608a1",
+            "text": "The findings indicate that self-regulation is less preferred in cultures with high uncertainty avoidance, where concerns about accountability lead to a stronger preference for government regulation instead of self-regulation.",
+            "is_support": false
+        },
+        {
+            "uuid": "5e45c769-9f2e-46f4-be1e-a1e532514d26",
+            "text": "The findings show that higher uncertainty avoidance is significantly related to a preference for industry self-regulation, highlighting the potential for companies to create flexible solutions that cater to cultural and contextual needs.",
+            "is_support": true
+        },
+        {
+            "uuid": "5fcd3fdf-6bfa-4cad-860a-8f0c3f5f6127",
+            "text": "Data indicates that only 17.71% of respondents prefer industry self-regulation, implying that a majority may not trust the industry's ability to adapt swiftly without oversight, questioning the efficacy of self-regulation for rapid responses.",
+            "is_support": false
+        },
+        {
+            "uuid": "a4a23b9c-8fce-47dc-b05c-156f34003783",
+            "text": "The findings suggest that in cultures with high uncertainty avoidance, respondents are more likely to prefer industry self-regulation, indicating a belief that companies can adapt quickly to new challenges and enhance accountability.",
+            "is_support": true
+        },
+        {
+            "uuid": "c3d89a00-76d6-4e4a-98f8-783159c01c74",
+            "text": "Countries with higher uncertainty avoidance tend to favor government regulation; however, self-regulatory frameworks can adapt more rapidly to technological advancements, aligning with the industry's need for flexibility.",
+            "is_support": true
+        },
+        {
+            "uuid": "af84041d-8860-40eb-b804-ebae5c76077a",
+            "text": "The study indicates that higher levels of uncertainty avoidance lead people to prefer government regulation over self-regulation, suggesting that industry self-regulation may not enhance accountability as effectively as government oversight.",
+            "is_support": true
+        },
+        {
+            "uuid": "105aa0ea-b288-4d60-b92f-28159c7d3567",
+            "text": "The preference for government regulation of AI is significantly higher among respondents who perceive risks related to accountability and responsibility, suggesting that self-regulation may not adequately address these concerns.",
+            "is_support": false
+        },
+        {
+            "uuid": "4fcb9519-a629-4496-862c-6ad32b770924",
+            "text": "The study indicates that uncertainty avoidance is positively linked to preferences for industry self-regulation, yet this relationship is nuanced by perceptions of AI risks, which can undermine the argument for flexibility in self-regulation.",
+            "is_support": false
+        },
+        {
+            "uuid": "5cfb523b-7037-4ce0-8f76-9908829e26a3",
+            "text": "Self-regulation allows for quicker implementation of AI technologies, avoiding the bureaucratic processes often associated with government regulations, which can stifle innovation.",
+            "is_support": true
+        },
+        {
+            "uuid": "6d009ed7-2473-4d76-994f-26d41663c836",
+            "text": "Self-regulation allows AI companies to adapt more quickly to technological advancements as they face fewer bureaucratic hurdles, enabling faster innovation cycles.",
+            "is_support": true
+        },
+        {
+            "uuid": "5a5de48c-f3f4-4441-9c4b-d224ab3c4fe2",
+            "text": "Self-regulation empowers companies to create tailored ethical standards that reflect the unique challenges of their technologies, allowing for adaptability and relevance in a rapidly evolving field.",
+            "is_support": true
+        },
+        {
+            "uuid": "7f6530a2-6b81-406a-b278-f770ed6f0aaa",
+            "text": "Concerns about accountability and discrimination lead to a lack of confidence in self-regulation, implying that companies may not take adequate responsibility for their practices, which could hinder rather than promote innovation.",
+            "is_support": false
+        },
+        {
+            "uuid": "638f406f-bde8-40ab-9be3-6305f7d89ca2",
+            "text": "The establishment of ethical guidelines by industry experts can lead to standards that are more closely aligned with current technological realities, as seen in the emphasis on responsible AI implementation in the guidelines set by the Council of Europe.",
+            "is_support": true
+        },
+        {
+            "uuid": "39033f32-3149-4e71-9c9f-b3eadf70c579",
+            "text": "The preference for industry self-regulation is conditional; respondents are more likely to accept it when they fear a lack of responsibility, but concerns regarding accountability or discrimination lead to disapproval of such self-regulation.",
+            "is_support": false
+        },
+        {
+            "uuid": "91b2e1c1-a72c-4fa2-8add-f5fe3a9c1508",
+            "text": "Self-regulation provides flexibility for companies to integrate ethical decision-making into AI systems, which can evolve and improve more rapidly than government-mandated regulations, thereby enhancing innovation.",
+            "is_support": true
+        },
+        {
+            "uuid": "fbb96b7f-1ace-4338-b102-ab2fa3cdb8b5",
+            "text": "The reliance on self-regulation in the AI industry can lead to ethical lapses and inadequate oversight, as industry standards may prioritize innovation over accountability, resulting in potential risks to society.",
+            "is_support": false
+        },
+        {
+            "uuid": "94045ce4-8615-485c-a594-4764719b29b2",
+            "text": "Self-regulation may lead to fragmented guidelines that do not reflect a unified approach to ethical standards, as companies may prioritize their interests over collective ethical considerations, undermining the goal of accountability.",
+            "is_support": false
+        },
+        {
+            "uuid": "8e3cbe66-e21e-4206-9198-a4c056c59bfb",
+            "text": "The data indicates that respondents who fear a lack of responsibility are more likely to support industry self-regulation, suggesting that tailored solutions can address specific concerns within the AI landscape.",
+            "is_support": true
+        },
+        {
+            "uuid": "5c0fe972-1d6b-422a-93e9-ceb7d4b80e71",
+            "text": "The European Union's Artificial Intelligence Act emphasizes the need for harmonized regulations, indicating that government regulation may be more effective than self-regulation in establishing ethical standards across the industry.",
+            "is_support": false
+        },
+        {
+            "uuid": "793c8c0c-5d37-4b6d-bcbd-b89d8aa5914d",
+            "text": "The reliance on self-regulation may lead to insufficient accountability, as industry self-regulation lacks the robust scrutiny and enforcement mechanisms that government regulation provides, potentially failing to uphold high standards.",
+            "is_support": false
+        },
+        {
+            "uuid": "4078d439-2ef0-48bc-a689-a1d4410db854",
+            "text": "Self-regulation allows companies to rapidly implement changes based on emerging technologies and challenges, fostering a culture of responsibility and higher standards in AI practices.",
+            "is_support": true
+        },
+        {
+            "uuid": "39bd7652-c704-4cc4-93b9-db09c2eacbdf",
+            "text": "The preference for government regulation over self-regulation suggests that companies may not be trusted to adapt quickly and responsibly to new challenges without oversight, undermining the claim that self-regulation promotes innovation.",
+            "is_support": false
+        },
+        {
+            "uuid": "1ca0cc09-081e-4f01-bd67-68d3c1bb27b7",
+            "text": "Concerns about a lack of accountability among respondents highlight that self-regulation may not be perceived as sufficient, reinforcing the need for companies to be held accountable through more robust regulatory frameworks.",
+            "is_support": true
+        },
+        {
+            "uuid": "b7231c71-a685-4be0-8df6-1c4b557bce8e",
+            "text": "The study indicates that people in countries with higher levels of uncertainty avoidance perceive AI risks related to accountability, leading them to favor government regulation over industry self-regulation, which may not adequately address these concerns.",
+            "is_support": false
+        },
+        {
+            "uuid": "b85d83f5-1d08-4e52-97e4-98bdb456270c",
+            "text": "The risks associated with a lack of accountability and responsibility in self-regulation may hinder ethical development in AI, as companies could prioritize innovation over the establishment of robust ethical frameworks.",
+            "is_support": false
+        }
+    ],
+    "relations": [
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            "SUPPORTED_BY",
+            "1ca0cc09-081e-4f01-bd67-68d3c1bb27b7"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            "REFUTED_BY",
+            "b7231c71-a685-4be0-8df6-1c4b557bce8e"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            "SUPPORTED_BY",
+            "a4a23b9c-8fce-47dc-b05c-156f34003783"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            "REFUTED_BY",
+            "c7130906-bc40-447e-9af1-07b6152fcaf1"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            "SUPPORTED_BY",
+            "638f406f-bde8-40ab-9be3-6305f7d89ca2"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            "SUPPORTED_BY",
+            "8e3cbe66-e21e-4206-9198-a4c056c59bfb"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            "SUPPORTED_BY",
+            "c3d89a00-76d6-4e4a-98f8-783159c01c74"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            "REFUTED_BY",
+            "5fcd3fdf-6bfa-4cad-860a-8f0c3f5f6127"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            "REFUTED_BY",
+            "39033f32-3149-4e71-9c9f-b3eadf70c579"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            "SUPPORTED_BY",
+            "af84041d-8860-40eb-b804-ebae5c76077a"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            "REFUTED_BY",
+            "fbb96b7f-1ace-4338-b102-ab2fa3cdb8b5"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            "SUPPORTED_BY",
+            "5e45c769-9f2e-46f4-be1e-a1e532514d26"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            "REFUTED_BY",
+            "39bd7652-c704-4cc4-93b9-db09c2eacbdf"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            "REFUTED_BY",
+            "5c0fe972-1d6b-422a-93e9-ceb7d4b80e71"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            "REFUTED_BY",
+            "793c8c0c-5d37-4b6d-bcbd-b89d8aa5914d"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            "REFUTED_BY",
+            "105aa0ea-b288-4d60-b92f-28159c7d3567"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            "REFUTED_BY",
+            "b85d83f5-1d08-4e52-97e4-98bdb456270c"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            "REFUTED_BY",
+            "94045ce4-8615-485c-a594-4764719b29b2"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            "REFUTED_BY",
+            "4fcb9519-a629-4496-862c-6ad32b770924"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            "SUPPORTED_BY",
+            "6d009ed7-2473-4d76-994f-26d41663c836"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            "REFUTED_BY",
+            "7f6530a2-6b81-406a-b278-f770ed6f0aaa"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            "SUPPORTED_BY",
+            "07e77845-81fe-4a8b-9dfc-0026e97c8192"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            "REFUTED_BY",
+            "3eedce3a-0a41-4f92-9849-eba2da8608a1"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            "SUPPORTED_BY",
+            "91b2e1c1-a72c-4fa2-8add-f5fe3a9c1508"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            "SUPPORTED_BY",
+            "1a4f7389-75a0-4cc9-9ff3-2a5ab6ed1149"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            "SUPPORTED_BY",
+            "5cfb523b-7037-4ce0-8f76-9908829e26a3"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            "SUPPORTED_BY",
+            "5a5de48c-f3f4-4441-9c4b-d224ab3c4fe2"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            "SUPPORTED_BY",
+            "4078d439-2ef0-48bc-a689-a1d4410db854"
+        ]
+    ],
+    "claim_similarity": [
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            0.8611639874394454,
+            "00bdae26-511c-4842-b082-5a040223e730"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            0.8172826022895382,
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            0.8182799295274857,
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            0.8461536530824787,
+            "b76dd367-9edb-425b-9ae0-839178f8071c"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            0.9091873246717775,
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09"
+        ],
+        [
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53",
+            0.907744339080757,
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            0.8611639874394454,
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            0.9369913108622518,
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            0.8455859440308855,
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            0.7908340619663082,
+            "b76dd367-9edb-425b-9ae0-839178f8071c"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            0.9504280921809354,
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09"
+        ],
+        [
+            "00bdae26-511c-4842-b082-5a040223e730",
+            0.7810982764683886,
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            0.8172826022895382,
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            0.9369913108622518,
+            "00bdae26-511c-4842-b082-5a040223e730"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            0.8698365541727338,
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            0.7941695447784919,
+            "b76dd367-9edb-425b-9ae0-839178f8071c"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            0.9052097008251101,
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09"
+        ],
+        [
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79",
+            0.7845513685763066,
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            0.8698365541727338,
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            0.8182799295274857,
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            0.8455859440308855,
+            "00bdae26-511c-4842-b082-5a040223e730"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            0.7846929750404401,
+            "b76dd367-9edb-425b-9ae0-839178f8071c"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            0.8810312377448702,
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09"
+        ],
+        [
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf",
+            0.7907733868554249,
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            0.7908340619663082,
+            "00bdae26-511c-4842-b082-5a040223e730"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            0.7941695447784919,
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            0.8461536530824787,
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            0.7846929750404401,
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            0.8378488833327794,
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09"
+        ],
+        [
+            "b76dd367-9edb-425b-9ae0-839178f8071c",
+            0.8363060269866436,
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            0.8378488833327794,
+            "b76dd367-9edb-425b-9ae0-839178f8071c"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            0.9504280921809354,
+            "00bdae26-511c-4842-b082-5a040223e730"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            0.9052097008251101,
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            0.9091873246717775,
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            0.8810312377448702,
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf"
+        ],
+        [
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09",
+            0.8202663797550838,
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            0.8363060269866436,
+            "b76dd367-9edb-425b-9ae0-839178f8071c"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            0.7810982764683886,
+            "00bdae26-511c-4842-b082-5a040223e730"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            0.7845513685763066,
+            "17146dd9-992d-4f8c-bdd4-7a09b6f7ca79"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            0.907744339080757,
+            "48b74e2e-c4e8-404e-a5ec-11ef85a83d53"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            0.8202663797550838,
+            "f0d87f2d-3bcb-49b4-a435-dccc39984f09"
+        ],
+        [
+            "7fbe4771-7bfd-4105-bb7b-acae024f56de",
+            0.7907733868554249,
+            "47915fd5-b71c-462b-abd2-0aeb995a41cf"
+        ]
+    ]
+}
