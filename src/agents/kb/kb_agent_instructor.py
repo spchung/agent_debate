@@ -1,18 +1,14 @@
 import instructor
 import os, json
 from typing import Literal
-from src.llm.client import llm, get_llm_instnace
-
-# from src.llm.client import get_llm_instnace
-from src.debate.basic_history_manager import BasicHistoryManager
+from src.llm.client import get_llm_instnace
+from src.utils.pdf_parser import PDFParser
 from src.shared.models import AgnetConfig, ResponseModel
 from src.knowledge_base.pdf_kb import PdfKnowledgeBase
+from src.debate.basic_history_manager import BasicHistoryManager
 from src.agents.kb.workers import ClaimInqueryGeneratorInputSchema, claim_inquery_generator_agent
 from src.agents.kb.workers import title_and_author_extractor_agent, TitleAndAuthorExtractorInputSchema
-from src.utils.pdf_parser import PDFParser
-# Patch the OpenAI client
-
-client = instructor.from_openai(get_llm_instnace())
+from src.agents.prompting import closing_remark_prompt
 
 class KnowledgeBaseDebateAgent:
     def __init__(
@@ -61,58 +57,50 @@ class KnowledgeBaseDebateAgent:
         
         return mmap
     
-    def __get_sys_message(self, is_final=False, context={}):
+    def __get_sys_message(self, is_final=False, context={}, is_opening=False):
         if is_final:
             self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)
-            # Extract previous arguments
-            my_previous_arguments = []
-            for msg in self_messages:
-                if 'role' in msg and msg['role'] == 'assistant':
-                    my_previous_arguments.append(msg['content'])
-            
-            previous_args_text = ""
-            if my_previous_arguments:
-                previous_args_text = "\n".join(my_previous_arguments)
-                
-            return { 'role': 'system', 'content': f"""
+            return closing_remark_prompt(
+                stance=self.stance,
+                topic=self.topic,
+                messages=self_messages,
+            )
+        
+        if is_opening:
+            return {'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
-                
-                You are a debate participant delivering your final statement.
+                    
+                You are a debate agent that takes a position on the presented topic.
                 You are arguing {self.stance} the topic: '{self.topic}'.
                 
-                INTERNAL PREPARATION
+                OPENING STATEMENT STRATEGY
                 
-                1. Scan through your previous statements in this debate.
-                2. Pick out your most compelling arguments and evidence.
-                3. Identify the main point from your opponent that needs addressing.
+                1. Establish a clear position based on factual evidence
+                2. Present your strongest evidence-backed point first
+                3. Set the foundation for a fact-based discussion
+                4. Reference specific information from your knowledge base
                 
-                CLOSING FORMAT
+                INTERNAL ASSISTANT STEPS
                 
-                1. MAIN POINTS RECAP (1 paragraph)
-                - Remind the audience of your 2-3 key arguments
-                - State them clearly and confidently without excessive detail
-                
-                2. OPPONENT COUNTER (1 paragraph)
-                - Target your opponent's central claim or weakness
-                - Explain why their position doesn't hold up
-                
-                3. FINAL TAKEAWAY (1-3 sentences)
-                - Deliver a concise, powerful conclusion
-                - Leave the audience with a clear reason to support your position
-                
-                YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
-                {previous_args_text}
+                1. Analyze the topic thoroughly.
+                2. Select the most compelling keypoint from your knowledge base that supports your position.
+                3. Identify the source (title or author) of this keypoint.
+                4. Craft an opening statement that clearly presents this evidence-backed position.
                 
                 OUTPUT INSTRUCTIONS
                 
-                - Be direct and straightforward
-                - Use everyday language that's easy to understand
-                - Keep your statement under 250 words total
-                - Maintain a confident but conversational tone
-                - Focus on making your position memorable
-                - Write in complete paragraphs, not bullet points
-                - Don't use debate jargon or overly formal language
-            """}
+                - Create a compelling opening statement that clearly establishes your evidence-based position
+                - Reference specific information from the knowledge base, citing the author or source
+                - Use clear, concise language in a natural conversational style
+                - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
+                - If using abbreviations, define them on first use
+                - Aim for 3 to 5 sentences that form a cohesive paragraph
+                - Focus on establishing credibility through factual evidence
+                
+                KNOWLEDGE BASE
+                {json.dumps(context)}
+                """
+            }
 
         return {'role': 'system', 'content': f"""
             IDENTITY and PURPOSE
@@ -162,7 +150,7 @@ class KnowledgeBaseDebateAgent:
     def debate_identifier(self):
         return f"kb_{self.stance}"
 
-    def next_round_response(self, is_final=False):
+    def next_round_response(self, is_final=False, is_opening=False):
         # process last response
         opponent_last_msg = self.memory_manager.get_last_message()
         
@@ -186,9 +174,11 @@ class KnowledgeBaseDebateAgent:
             "source": source
         }
 
-        sys_msg = self.__get_sys_message(is_final=is_final, context=context_dict)
+        sys_msg = self.__get_sys_message(is_final=is_final, context=context_dict, is_opening=is_opening)
         message_history = self.memory_manager.to_msg_array(self.agent_config)
         message_history.insert(0, sys_msg)
+        
+        client = instructor.from_openai(get_llm_instnace())
         
         resp = client.chat.completions.create(
             model="gpt-4o-mini",

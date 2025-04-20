@@ -34,6 +34,7 @@ from src.agents.graph.workers import DebateKnowledgeGraph, ClaimNode, EvidenceNo
 from src.utils.text_split import split_text_by_sentences_and_length
 from src.utils.logger import setup_logger
 from src.agents.kb.workers import title_and_author_extractor_agent, TitleAndAuthorExtractorInputSchema
+from src.agents.prompting import closing_remark_prompt
 
 logger = setup_logger()
 client = instructor.from_openai(get_llm_instnace())
@@ -195,60 +196,15 @@ class GraphDebateAgnet:
         evidence_list = [evidence.text for evidence in evidence_list]
         return "\n".join(evidence_list)
 
-    def __get_sys_message(self, opponent_msg=None, is_final=False):
-        
+    def __get_sys_message(self, opponent_msg=None, is_final=False, is_opening=False):
         if is_final:
             self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)
-            # Extract previous arguments
-            my_previous_arguments = []
-            for msg in self_messages:
-                if 'role' in msg and msg['role'] == 'assistant':
-                    my_previous_arguments.append(msg['content'])
-            
-            previous_args_text = ""
-            if my_previous_arguments:
-                previous_args_text = "\n".join(my_previous_arguments)
-                
-            return { 'role': 'system', 'content': f"""
-                IDENTITY and PURPOSE
-                
-                You are a debate participant delivering your final statement.
-                You are arguing {self.stance} the topic: '{self.topic}'.
-                
-                INTERNAL PREPARATION
-                
-                1. Scan through your previous statements in this debate.
-                2. Pick out your most compelling arguments and evidence.
-                3. Identify the main point from your opponent that needs addressing.
-                
-                CLOSING FORMAT
-                
-                1. MAIN POINTS RECAP (1 paragraph)
-                - Remind the audience of your 2-3 key arguments
-                - State them clearly and confidently without excessive detail
-                
-                2. OPPONENT COUNTER (1 paragraph)
-                - Target your opponent's central claim or weakness
-                - Explain why their position doesn't hold up
-                
-                3. FINAL TAKEAWAY (1-3 sentences)
-                - Deliver a concise, powerful conclusion
-                - Leave the audience with a clear reason to support your position
-                
-                YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
-                {previous_args_text}
-                
-                OUTPUT INSTRUCTIONS
-                
-                - Be direct and straightforward
-                - Use everyday language that's easy to understand
-                - Keep your statement under 250 words total
-                - Maintain a confident but conversational tone
-                - Focus on making your position memorable
-                - Write in complete paragraphs, not bullet points
-                - Don't use debate jargon or overly formal language
-            """}
-        
+            return closing_remark_prompt(
+                stance=self.stance,
+                topic=self.topic,
+                messages=self_messages,
+            )
+    
         # if is the first round, select the first claim
         if not opponent_msg:
             claim, evidence, counter_evidence = self.__select_fist_claim()
@@ -265,6 +221,54 @@ class GraphDebateAgnet:
         previous_args_text = ""
         if my_previous_arguments:
             previous_args_text = "YOUR PREVIOUS ARGUMENTS:\n" + "\n".join(my_previous_arguments[-2:] if len(my_previous_arguments) > 2 else my_previous_arguments)
+
+        # if opening statement
+        if is_opening:
+            return { 
+                'role': 'system', 
+                'content': f"""
+                        IDENTITY and PURPOSE
+                            
+                        You are a skilled debate agent arguing {self.stance} the topic: '{self.topic}'.
+                        You are beginning a debate where you will build a cohesive narrative across multiple exchanges.
+                        You have access to a claim, supporting evidence, and counter evidence from your knowledge base.
+                        
+                        OPENING STATEMENT STRATEGY
+                        
+                        1. Establish a clear conceptual framework for your position
+                        2. Present your strongest claim with compelling supporting evidence
+                        3. Acknowledge potential counter-arguments but frame the debate favorably
+                        4. Set the foundation for a logical progression of arguments
+                        
+                        INTERNAL ASSISTANT STEPS
+                        
+                        1. Analyze the topic and your stance carefully
+                        2. Select the most compelling claim that establishes your position
+                        3. Identify the strongest supporting evidence for this claim
+                        4. Consider how this opening claim connects to future arguments
+                        5. Briefly acknowledge potential counter-perspectives to demonstrate awareness
+                        6. Formulate an opening statement that establishes your position confidently
+                        
+                        OUTPUT INSTRUCTIONS
+                        
+                        - Create a clear, persuasive opening statement that establishes your position
+                        - Integrate (don't just repeat) the provided claim and supporting evidence
+                        - Briefly acknowledge potential counter-perspectives to demonstrate critical thinking
+                        - Use clear, concise language in a natural conversational style
+                        - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
+                        - If using abbreviations, define them on first use
+                        - Aim for 3 to 5 sentences that form a cohesive paragraph
+                        
+                        CLAIM TO INCORPORATE:
+                        {claim.as_cited_text_json()}
+                        
+                        SUPPORTING EVIDENCE:
+                        {self.__format_evidence_list(evidence)}
+                        
+                        COUNTER EVIDENCE TO ACKNOWLEDGE:
+                        {self.__format_evidence_list(counter_evidence)}
+                        """
+                    }
 
         return { 'role': 'system', 'content': f"""
             IDENTITY and PURPOSE
@@ -324,10 +328,10 @@ class GraphDebateAgnet:
     def describe(self):
         return f"Graph Debate Agent for topic: {self.topic} with stance: {self.stance}"
 
-    def next_round_response(self, is_final=False):
+    def next_round_response(self, is_final=False, is_opening=False):
         message_history = self.memory_manager.to_msg_array(self.agent_config)
         last_msg = message_history[-1]
-        sys_msg = self.__get_sys_message(last_msg, is_final=is_final)
+        sys_msg = self.__get_sys_message(last_msg, is_final=is_final, is_opening=is_opening)
         message_history.insert(0, sys_msg)
         
         resp = client.chat.completions.create(

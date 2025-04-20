@@ -20,7 +20,15 @@ class MessageModel(BaseModel):
         
         if not default_role:
             default_role = 'assistant'
-
+        
+        # if moderator message - leave as is
+        if self.agent_config.type == 'moderator':
+            return {
+                "role": 'user',
+                "content": f"[MODERATOR]: {self.message}"
+            }
+        
+        # if agent message - add [YOU] or [OPPONENT]
         if agent_perspective and agent_perspective.id == self.agent_config.id:
             return {
                 "role": default_role,
@@ -29,7 +37,7 @@ class MessageModel(BaseModel):
         
         return {
             "role": default_role,
-            "content": f"[{self.agent_config.name}]: {self.message}"
+            "content": f"[OPPONENT]: {self.message}"
         }
 
 class ResponseModel(BaseModel):

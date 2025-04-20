@@ -10,12 +10,11 @@ Planning agent workflow:
 import instructor
 import json
 from typing import Literal
-from src.llm.client import llm
+from src.llm.client import get_llm_instnace
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig, ResponseModel
 from src.agents.planning.workers import get_kb_with_stance_as_dict
-
-client = instructor.from_openai(llm)
+from src.agents.prompting import closing_remark_prompt
 
 class PlanningDebateAgent:
     def __init__(
@@ -44,58 +43,48 @@ class PlanningDebateAgent:
     def describe(self):
         return f"Planning agent for topic: {self.topic} with stance: {self.stance}"
 
-    def __get_sys_message(self, is_final=False):
+    def __get_sys_message(self, is_final=False, is_opening=False):
         if is_final:
             self_messages = self.memory_manager.get_messages_of_agent(self.agent_config)
-            # Extract previous arguments
-            my_previous_arguments = []
-            for msg in self_messages:
-                if 'role' in msg and msg['role'] == 'assistant':
-                    my_previous_arguments.append(msg['content'])
-            
-            previous_args_text = ""
-            if my_previous_arguments:
-                previous_args_text = "\n".join(my_previous_arguments)
-                
-            return { 'role': 'system', 'content': f"""
+            return closing_remark_prompt(
+                stance=self.stance,
+                topic=self.topic,
+                messages=self_messages,
+            )
+        
+        if is_opening:
+            return {'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
-                
-                You are a debate participant delivering your final statement.
+                You are a debate agent that takes a position on the presented topic.
                 You are arguing {self.stance} the topic: '{self.topic}'.
-                
-                INTERNAL PREPARATION
-                
-                1. Scan through your previous statements in this debate.
-                2. Pick out your most compelling arguments and evidence.
-                3. Identify the main point from your opponent that needs addressing.
-                
-                CLOSING FORMAT
-                
-                1. MAIN POINTS RECAP (1 paragraph)
-                - Remind the audience of your 2-3 key arguments
-                - State them clearly and confidently without excessive detail
-                
-                2. OPPONENT COUNTER (1 paragraph)
-                - Target your opponent's central claim or weakness
-                - Explain why their position doesn't hold up
-                
-                3. FINAL TAKEAWAY (1-3 sentences)
-                - Deliver a concise, powerful conclusion
-                - Leave the audience with a clear reason to support your position
-                
-                YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
-                {previous_args_text}
-                
+
+                OPENING STATEMENT STRATEGY
+                1. Introduce your position clearly and confidently
+                2. Outline one key argument that will form the foundation of your case
+                3. Present your strongest evidence upfront to establish credibility
+                4. Frame the debate in terms favorable to your position
+
+                INTERNAL ASSISTANT STEPS
+                1. Analyze the topic and your stance thoroughly.
+                2. Identify your strongest argument from the knowledge base.
+                3. Structure your opening statement to support this argument.
+                4. Include relevant evidence from the knowledge base to support each point.
+                5. If your opening is based on the knowledge base, ensure that you reference the title or author of the source.
+                6. Craft a compelling conclusion that reinforces your main position.
+
                 OUTPUT INSTRUCTIONS
-                
-                - Be direct and straightforward
-                - Use everyday language that's easy to understand
-                - Keep your statement under 250 words total
-                - Maintain a confident but conversational tone
-                - Focus on making your position memorable
-                - Write in complete paragraphs, not bullet points
-                - Don't use debate jargon or overly formal language
-            """}
+                - Do not include any personal identifiers or greetings
+                - Create a strong, persuasive opening statement that clearly establishes your position
+                - Include specific evidence to support each argument, citing sources when using the knowledge base
+                - Use clear, concise language in a natural conversational style
+                - Do not start the message with "[YOU]" or "[AGENT]" or any other identifier
+                - If using abbreviations, define them on first use
+                - Aim for 4-5 sentences that form a cohesive opening statement
+
+                KNOWLEDGE BASE
+                {json.dumps(self.planned_kb)}
+                """
+                }
 
         return {'role': 'system', 'content': f"""
             IDENTITY and PURPOSE
@@ -140,11 +129,12 @@ class PlanningDebateAgent:
             """
         }
     
-    def next_round_response(self, is_final=False):
-        sys_msg = self.__get_sys_message(is_final=is_final)
+    def next_round_response(self, is_final=False, is_opening=False):
+        sys_msg = self.__get_sys_message(is_final=is_final, is_opening=is_opening)
         message_history = self.memory_manager.to_msg_array(self.agent_config)
         message_history.insert(0, sys_msg)
         
+        client = instructor.from_openai(get_llm_instnace())
         resp = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=message_history,
