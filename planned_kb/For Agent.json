@@ -1,0 +1,15 @@
+[
+    {
+        "debate_summary": "The text discusses the regulation of AI, focusing on cultural influences on people's perceptions of AI risks and their preferences for either government regulation or industry self-regulation. It posits that individuals from countries with a high level of uncertainty avoidance are more inclined to prefer government regulation due to perceived risks such as lack of accountability and responsibility. The findings suggest that self-regulation may not sufficiently address these risks, thus supporting the argument that the AI industry should adopt self-regulation as a preferable alternative to government regulation, as it can promote innovation while addressing ethical concerns effectively.",
+        "key_points": [
+            "Countries with higher uncertainty avoidance show greater perceived AI risks related to lack of accountability (39.34%) and responsibility (50.40%).",
+            "58.41% of respondents prefer government regulation for ethical AI development, compared to only 17.71% for industry self-regulation.",
+            "High uncertainty avoidance correlates with more requests for government intervention, indicating a lack of trust in industry self-regulation.",
+            "Cultural dimensions shape regulatory preferences, suggesting a nuanced approach to AI regulation that considers both government and industry roles.",
+            "The study indicates that government regulation may enhance scrutiny and responsible AI innovation, while self-regulation might lead to inconsistent frameworks."
+        ],
+        "text_stance": "against",
+        "author": "Bartosz Wilczek, Sina Th\u00e4usler-Kordonouri, Maximilian Eder",
+        "title": "Government regulation or industry self-regulation of AI? Investigating the relationships between uncertainty avoidance, people\u2019s AI risk perceptions, and their regulatory preferences in Europe"
+    }
+]

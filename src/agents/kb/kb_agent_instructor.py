@@ -1,7 +1,9 @@
 import instructor
 import os, json
 from typing import Literal
-from src.llm.client import llm
+from src.llm.client import llm, get_llm_instnace
+
+# from src.llm.client import get_llm_instnace
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig, ResponseModel
 from src.knowledge_base.pdf_kb import PdfKnowledgeBase
@@ -9,7 +11,8 @@ from src.agents.kb.workers import ClaimInqueryGeneratorInputSchema, claim_inquer
 from src.agents.kb.workers import title_and_author_extractor_agent, TitleAndAuthorExtractorInputSchema
 from src.utils.pdf_parser import PDFParser
 # Patch the OpenAI client
-client = instructor.from_openai(llm)
+
+client = instructor.from_openai(get_llm_instnace())
 
 class KnowledgeBaseDebateAgent:
     def __init__(
@@ -17,8 +20,8 @@ class KnowledgeBaseDebateAgent:
         topic: str, 
         stance: Literal["for", "against"], 
         agent_config: AgnetConfig, 
-        memory_manager: BasicHistoryManager,
-        kb_path: str
+        kb_path: str,
+        memory_manager: BasicHistoryManager = None,
     ):
         self.memory_manager = memory_manager
         self.topic = topic
@@ -26,7 +29,7 @@ class KnowledgeBaseDebateAgent:
         self.agent_config = agent_config
 
         # resigter agent
-        self.memory_manager.register_agent_debator(agent_config)
+        # self.memory_manager.register_agent_debator(agent_config)
 
         ## knowledge base
         self.kb = PdfKnowledgeBase(kb_path)
@@ -73,29 +76,43 @@ class KnowledgeBaseDebateAgent:
                 
             return { 'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
-                    
-                You are a skilled debate agent taking a position on the presented topic. 
-                You are arguing {self.stance} the topic: '{self.topic}'.
-                You are on the final round of the debate and need to create a compelling summary.
-
-                INTERNAL ASSISTANT STEPS
                 
-                1. Carefully analyze all your previous statements in the debate, provided below.
-                2. Identify 4-5 key arguments and claims you've consistently made throughout the debate.
-                3. Extract the strongest evidence and points from your previous arguments.
-                4. Organize these into a logical, coherent structure that reinforces your position.
-                5. Create a summary that presents your stance as a unified, well-reasoned argument.
-
-                OUTPUT INSTRUCTIONS
-
-                1. Use bullet points to list out each key claim you've made in the debate.
-                2. Format each bullet point with bold headers that capture the essence of each argument.
-                3. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
-                4. Ensure your summary presents a logical, interconnected narrative supporting your position.
-
+                You are a debate participant delivering your final statement.
+                You are arguing {self.stance} the topic: '{self.topic}'.
+                
+                INTERNAL PREPARATION
+                
+                1. Scan through your previous statements in this debate.
+                2. Pick out your most compelling arguments and evidence.
+                3. Identify the main point from your opponent that needs addressing.
+                
+                CLOSING FORMAT
+                
+                1. MAIN POINTS RECAP (1 paragraph)
+                - Remind the audience of your 2-3 key arguments
+                - State them clearly and confidently without excessive detail
+                
+                2. OPPONENT COUNTER (1 paragraph)
+                - Target your opponent's central claim or weakness
+                - Explain why their position doesn't hold up
+                
+                3. FINAL TAKEAWAY (1-3 sentences)
+                - Deliver a concise, powerful conclusion
+                - Leave the audience with a clear reason to support your position
+                
                 YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
                 {previous_args_text}
-                """}
+                
+                OUTPUT INSTRUCTIONS
+                
+                - Be direct and straightforward
+                - Use everyday language that's easy to understand
+                - Keep your statement under 250 words total
+                - Maintain a confident but conversational tone
+                - Focus on making your position memorable
+                - Write in complete paragraphs, not bullet points
+                - Don't use debate jargon or overly formal language
+            """}
 
         return {'role': 'system', 'content': f"""
             IDENTITY and PURPOSE

@@ -1,11 +1,11 @@
 import instructor
 from typing import Literal
-from src.llm.client import llm
+from src.llm.client import get_llm_instnace
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig, ResponseModel
 
 # Patch the OpenAI client
-client = instructor.from_openai(llm)
+client = instructor.from_openai(get_llm_instnace())
 
 """
 Basic Debate Agent:
@@ -21,14 +21,19 @@ class BasicDebateAgent:
     3. next round response
     '''
 
-    def __init__(self, topic: str, stance: Literal["for", "against"], agent_config: AgnetConfig, memory_manager: BasicHistoryManager):
+    def __init__(self, 
+            topic: str, 
+            stance: Literal["for", "against"], 
+            agent_config: AgnetConfig, 
+            memory_manager: BasicHistoryManager = None
+        ):
         self.memory_manager = memory_manager
         self.topic = topic
         self.stance = stance
         self.agent_config = agent_config
 
         # resigter agent
-        self.memory_manager.register_agent_debator(agent_config)
+        # self.memory_manager.register_agent_debator(agent_config)
 
     def __get_sys_message(self, is_final=False):
         if is_final:

@@ -1,7 +1,7 @@
 import instructor
 from typing import Any, Literal
 from pydantic import Field
-from src.llm.client import llm
+from src.llm.client import get_llm_instnace
 from abc import ABC, abstractmethod
 from atomic_agents.agents.base_agent import BaseAgent, BaseAgentConfig, BaseIOSchema, AgentMemory
 from atomic_agents.lib.components.system_prompt_generator import SystemPromptGenerator
@@ -57,7 +57,7 @@ class GenericDebateAgent(BaseDebateAgent):
         return BaseAgent(
             BaseAgentConfig(
                 client=instructor.from_openai(
-                    llm
+                    get_llm_instnace()
                 ),
                 memory=self.memory,
                 model='gpt-4o-mini',

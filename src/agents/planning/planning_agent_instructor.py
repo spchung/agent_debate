@@ -23,8 +23,8 @@ class PlanningDebateAgent:
         topic: str,
         stance: Literal["for", "against"],
         agent_config: AgnetConfig,
-        memory_manager: BasicHistoryManager,
-        kb_path: str
+        kb_path: str,
+        memory_manager: BasicHistoryManager = None,
     ):
         self.memory_manager = memory_manager
         self.topic = topic
@@ -32,7 +32,7 @@ class PlanningDebateAgent:
         self.agent_config = agent_config
 
         # resigter agent
-        self.memory_manager.register_agent_debator(agent_config)
+        # self.memory_manager.register_agent_debator(agent_config)
 
         # planned kb 
         self.planned_kb = get_kb_with_stance_as_dict(kb_path, topic, stance) # List[dict]

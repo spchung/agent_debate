@@ -1,6 +1,5 @@
 import json
 from src.utils.pdf_parser import PDFParser
-from src.llm.client import llm
 from src.agents.planning.workers import summarize_knowledge_base_with_stance
 
 dir_path = "knowledge_source/quantitative_easing"

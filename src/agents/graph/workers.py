@@ -10,7 +10,7 @@ from collections import defaultdict
 from typing import List
 from uuid import uuid4
 from pydantic import Field
-from src.llm.client import llm
+from src.llm.client import get_llm_instnace
 from atomic_agents.agents.base_agent import BaseAgent, BaseAgentConfig, BaseIOSchema
 from atomic_agents.lib.components.system_prompt_generator import SystemPromptGenerator
 from src.utils.embedding import get_openai_embedding, cosine_similarity
@@ -58,7 +58,7 @@ def get_claim_extraction_agent(num_of_claims=3) -> List[str]:
 
     return BaseAgent(
         BaseAgentConfig(
-            client=instructor.from_openai(llm),
+            client=instructor.from_openai(get_llm_instnace()),
             model='gpt-4o-mini',
             temperature=0.7,
             system_prompt_generator=resource_claim_extraction_prompt,
@@ -105,7 +105,7 @@ def get_evidence_extraction_agent(num_of_evidence=3):
 
     return BaseAgent(
         BaseAgentConfig(
-            client=instructor.from_openai(llm),
+            client=instructor.from_openai(get_llm_instnace()),
             model='gpt-4o-mini',
             temperature=0.7,
             system_prompt_generator=prompt,

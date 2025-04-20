@@ -1,3 +1,4 @@
+from typing import Literal
 from src.knowledge_base.pdf_kb import PdfKnowledgeBase
 from src.debate.basic_history_manager import BasicHistoryManager
 from src.shared.models import AgnetConfig
@@ -7,66 +8,43 @@ from src.agents.basic.basic_agent_instructor import BasicDebateAgent
 from src.agents.graph.graph_agent_instructor import GraphDebateAgnet
 from src.debate.workers import beautifier_agent, list_available_resources
 
-shared_mem = BasicHistoryManager()
-moderator = AgnetConfig(id="moderator", name="Moderator", type="moderator")
-shared_mem.register_agent_moderator(moderator)
-
-topic = "Self-regulation by the AI industry is preferable to government regulation."
-shared_mem.add_message(moderator, f"Today's topic is: '{topic}'. ")
-
-# basic - for
-basic_agent = BasicDebateAgent(
-    topic=topic,
-    stance="against",
-    agent_config=AgnetConfig(id="basic", name="basic"),
-    memory_manager=shared_mem
-)
-
-# agent 1 - planing
-planning_agent = PlanningDebateAgent(
-    topic=topic,
-    stance="for",
-    agent_config=AgnetConfig(id="planned", name="planned"),
-    memory_manager=shared_mem,
-    kb_path='knowledge_source/ai_regulation'
-)
-
-# kb - for 
-kb_agent = KnowledgeBaseDebateAgent(
-    topic=topic,
-    stance="for",
-    agent_config=AgnetConfig(id="kb_for", name="KB_For_AI_Regulation"),
-    memory_manager=shared_mem,
-    kb_path='knowledge_source/ai_regulation',
-)
-
-# graph
-graph_agent_config = AgnetConfig(id="graph_for", name="Graph_For_AI_Regulation")
-graph_agent = GraphDebateAgnet(
-    topic=topic,
-    stance="for",
-    agent_config=graph_agent_config,
-    memory_manager=shared_mem,
-    kb_path='knowledge_source/ai_regulation',
-    persist_kg_path=f'knowledge_graphs/{graph_agent_config.name}.json'
-)
-
-# head to head debate
-
-# one (for) vs three (against)
-# can skop basic as for
-
-# PLANNING vs all
-
-iterations = [
-    # (planning_agent, [ basic_agent ]),
-    (planning_agent, [ basic_agent, kb_agent, graph_agent ]),
-    # (kb_agent, [ basic_agent, planning_agent, graph_agent ]),
-    # (graph_agent, [ basic_agent, kb_agent, planning_agent ]),
-]
-
-resources = list_available_resources('knowledge_source/ai_regulation')
-
+def debate_agent_factory(
+    agent_config: AgnetConfig,
+    topic: str,
+    stance: str,
+    kb_path: str = None,
+    persist_kg_path: str = None,
+    agent_type: Literal["basic", "planning", "kb", "graph"] = "basic" 
+):
+    if agent_type == "basic":
+        return BasicDebateAgent(
+            topic,
+            stance,
+            agent_config,
+        )
+    elif agent_type == "planning":
+        return PlanningDebateAgent(
+            topic,
+            stance,
+            agent_config,
+            kb_path
+        )
+    elif agent_type == "kb":
+        return KnowledgeBaseDebateAgent(
+            topic,
+            stance,
+            agent_config,
+            kb_path
+        )
+    elif agent_type == "graph":
+        return GraphDebateAgnet(
+            topic=topic,
+            stance=stance,
+            agent_config=agent_config,
+            kb_path=kb_path,
+            persist_kg_path=persist_kg_path
+        )
+    
 def generate_closing(shared_mem: BasicHistoryManager, agent, moderator):
     # Create temporary separate memory managers for final statements
     temp_mem = BasicHistoryManager()
@@ -96,73 +74,111 @@ def generate_closing(shared_mem: BasicHistoryManager, agent, moderator):
 
     return res
 
-def run_debates(for_agent, opponents:list, turns:int=5):
-    for i in range(len(opponents)):
-        # set turns
-        k_turns = lim = turns
+def run_debate(for_agent, opponent_agent, resources: list, turns:int=5):    
+    shared_mem = BasicHistoryManager()
+    moderator = AgnetConfig(id="moderator", name="Moderator", type="moderator")
+    shared_mem.register_agent_moderator(moderator)
+    
+    # set up topic
+    topic = "Self-regulation by the AI industry is preferable to government regulation."
+    shared_mem.add_message(moderator, f"Today's topic is: '{topic}'. ")
 
-        opponent = opponents[i]
+    # grant memory access to agents
+    for_agent.memory_manager = shared_mem
+    opponent_agent.memory_manager = shared_mem
 
-        # set stance
-        for_agent.stance = "for"
-        opponent.stance = "against"
+    # register agents in shared memory
+    shared_mem.register_agent_debator(for_agent.agent_config)
+    shared_mem.register_agent_debator(opponent_agent.agent_config)
+    
+    # set turns
+    lim = turns
 
-        log_file_name = f"debate_results/{for_agent.agent_config.name}_vs_{opponent.agent_config.name}.txt"
-        log = open(log_file_name, "w")
+    # set up log file
+    log_file_name = f"debate_results/{for_agent.agent_config.name}_vs_{opponent_agent.agent_config.name}.txt"
+    log = open(log_file_name, "w")
 
-        shared_mem.reset()
-        moderator = AgnetConfig(id="moderator", name="Moderator", type="moderator")
-        shared_mem.register_agent_moderator(moderator)
-        shared_mem.add_message(moderator, f"Today's topic is: '{topic}'. ")
+    # write topic and headers
+    log.write("Debate topic: " + topic + "\n")
+    log.write("Available resources: \n")
 
-        # register agents
-        shared_mem.register_agent_debator(for_agent.agent_config)
-        shared_mem.register_agent_debator(opponent.agent_config)
+    # write available resources
+    for i, res in enumerate(resources):
+        log.write(f"{i+1} **{res['title']}** by {res['author']}\n")
 
-        log.write("Debate topic: " + topic + "\n")
+    log.write("Debate Transcript: \n")
 
-        log.write("Available resources: \n")
-        for i, res in enumerate(resources):
-            log.write(f"{i+1} **{res['title']}** by {res['author']}\n")
+    # turns
+    while turns > 0:
+        log.write(f"====== Round {lim - (turns - 1)} ======\n\n")
+        # For the final round, handle closing statements separately to avoid contamination
+        if turns == 1:
+            # # Write to log
+            for_res = generate_closing(shared_mem, for_agent, moderator)
+            log.write(f"[for_agent]: {for_res}\n\n")
+            opponent_res = generate_closing(shared_mem, opponent_agent, moderator)
+            log.write(f"[aganist_agent]: {opponent_res}\n\n")
+        else:
+            # Regular rounds
+            res = for_agent.next_round_response()
+            log.write(f"[for_agent]: {res}\n\n")
+            res = opponent_agent.next_round_response()
+            log.write(f"[aganist_agent]: {res}\n\n")
+        turns -= 1
 
-        log.write("Debate Transcript: \n")
+    log.close()
 
-        # k_turns
-        while k_turns > 0:
-            log.write(f"====== Round {lim - (k_turns - 1)} ======\n\n")
-            # For the final round, handle closing statements separately to avoid contamination
-            if k_turns == 1:
-                # # Write to log
-                for_res = generate_closing(shared_mem, for_agent, moderator)
-                log.write(f"[for_agent]: {for_res}\n\n")
-                opponent_res = generate_closing(shared_mem, opponent, moderator)
-                log.write(f"[aganist_agent]: {opponent_res}\n\n")
-            else:
-                # Regular rounds
-                res = for_agent.next_round_response()
-                log.write(f"[for_agent]: {res}\n\n")
-                res = opponent.next_round_response()
-                log.write(f"[aganist_agent]: {res}\n\n")
-            k_turns -= 1
+    # gen markdown
+    raw_text = open(log_file_name, "r").read()
+    md_log_file_name = f"debate_results/{for_agent.agent_config.name}_vs_{opponent_agent.agent_config.name}.md"
+    ff = open(md_log_file_name, "w+")
 
-        log.close()
-
-        raw_text = open(log_file_name, "r").read()
-
-        md_log_file_name = f"debate_results/{for_agent.agent_config.name}_vs_{opponent.agent_config.name}.md"
-        ff = open(md_log_file_name, "w+")
-
-        res = beautifier_agent.run(
-            beautifier_agent.input_schema(
-                debate_log_raw_text=raw_text
-            )
+    res = beautifier_agent.run(
+        beautifier_agent.input_schema(
+            debate_log_raw_text=raw_text
         )
-        ff.write(res.debate_log_md)
-        ff.close()
+    )
+    ff.write(res.debate_log_md)
+    ff.close()
+
+def main():
+    # top lvl vars:
+    TOPIC = "Self-regulation by the AI industry is preferable to government regulation."
+    RESOURCE_DIR = "knowledge_source/ai_regulation"
+
+    # resource list
+    resources = list_available_resources(RESOURCE_DIR)
+
+    iterations = [
+        ('planning', [ 'kb', ]),
+        # ('planning', [ 'basic', 'kb', 'graph' ]),
+        # (planning_agent, [ basic_agent, kb_agent, graph_agent ]),
+        # (kb_agent, [ basic_agent, planning_agent, graph_agent ]),
+        # (kb_agent, [ basic_agent ]),
+        # (graph_agent, [ basic_agent, kb_agent, planning_agent ]),
+    ]
 
 
-for for_agent, opponents in iterations:
+    
+    for for_agent_type, opponents_type in iterations:
+        for_agent = debate_agent_factory(
+            agent_config=AgnetConfig(id=f"{for_agent_type}_for", name=f"{for_agent_type}_for", type='debator'),
+            topic=TOPIC,
+            stance="for",
+            kb_path='knowledge_source/ai_regulation',
+            agent_type=for_agent_type
+        )
 
-    print("" + for_agent.describe() + " vs " + ", ".join([opponent.describe() for opponent in opponents]))
-    print("\n=====================================\n")
-    run_debates(for_agent, opponents, turns=3)
+        for i, opponent_type in enumerate(opponents_type):
+            opponent = debate_agent_factory(
+                agent_config=AgnetConfig(id=f"{opponent_type}_against_{i}", name=f"{opponent_type}_against_{i}", type='debator'),
+                topic=TOPIC,
+                stance="against",
+                kb_path='knowledge_source/ai_regulation',
+                agent_type=opponent_type,
+            )
+
+            run_debate(for_agent, opponent, resources=resources, turns=3)
+
+if __name__ == "__main__":
+    main()
