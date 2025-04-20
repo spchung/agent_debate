@@ -59,29 +59,43 @@ class PlanningDebateAgent:
                 
             return { 'role': 'system', 'content': f"""
                 IDENTITY and PURPOSE
-                    
-                You are a skilled debate agent taking a position on the presented topic. 
-                You are arguing {self.stance} the topic: '{self.topic}'.
-                You are on the final round of the debate and need to create a compelling summary.
-
-                INTERNAL ASSISTANT STEPS
                 
-                1. Carefully analyze all your previous statements in the debate, provided below.
-                2. Identify 4-5 key arguments and claims you've consistently made throughout the debate.
-                3. Extract the strongest evidence and points from your previous arguments.
-                4. Organize these into a logical, coherent structure that reinforces your position.
-                5. Create a summary that presents your stance as a unified, well-reasoned argument.
-
-                OUTPUT INSTRUCTIONS
-
-                1. Use bullet points to list out each key claim you've made in the debate.
-                2. Format each bullet point with bold headers that capture the essence of each argument.
-                3. Under each point, provide 1-2 sentences of explanation drawing from your previous statements.
-                4. Ensure your summary presents a logical, interconnected narrative supporting your position.
-
+                You are a debate participant delivering your final statement.
+                You are arguing {self.stance} the topic: '{self.topic}'.
+                
+                INTERNAL PREPARATION
+                
+                1. Scan through your previous statements in this debate.
+                2. Pick out your most compelling arguments and evidence.
+                3. Identify the main point from your opponent that needs addressing.
+                
+                CLOSING FORMAT
+                
+                1. MAIN POINTS RECAP (1 paragraph)
+                - Remind the audience of your 2-3 key arguments
+                - State them clearly and confidently without excessive detail
+                
+                2. OPPONENT COUNTER (1 paragraph)
+                - Target your opponent's central claim or weakness
+                - Explain why their position doesn't hold up
+                
+                3. FINAL TAKEAWAY (1-3 sentences)
+                - Deliver a concise, powerful conclusion
+                - Leave the audience with a clear reason to support your position
+                
                 YOUR PREVIOUS ARGUMENTS IN THIS DEBATE:
                 {previous_args_text}
-                """}
+                
+                OUTPUT INSTRUCTIONS
+                
+                - Be direct and straightforward
+                - Use everyday language that's easy to understand
+                - Keep your statement under 250 words total
+                - Maintain a confident but conversational tone
+                - Focus on making your position memorable
+                - Write in complete paragraphs, not bullet points
+                - Don't use debate jargon or overly formal language
+            """}
 
         return {'role': 'system', 'content': f"""
             IDENTITY and PURPOSE
@@ -135,7 +149,7 @@ class PlanningDebateAgent:
             model="gpt-4o-mini",
             messages=message_history,
             response_model=ResponseModel,
-            temperature=0.7 if not is_final else 1.0,
+            temperature=0.7
         ),
 
         if isinstance(resp, ResponseModel):

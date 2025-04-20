@@ -111,9 +111,9 @@ def run_debates(for_agent, opponents:list, turns:int=5):
         while turns > 0:
             log.write(f"====== Round {lim - (turns - 1)} ======\n\n")
             res = for_agent.next_round_response(is_final=turns == 1)
-            log.write(f"for_agent: {res}\n\n")
+            log.write(f"[for_agent]: {res}\n\n")
             res = opponent.next_round_response(is_final=turns == 1)
-            log.write(f"aganist_agent: {res}\n\n")
+            log.write(f"[aganist_agent]: {res}\n\n")
             turns -= 1
         log.close()
 
@@ -132,5 +132,5 @@ def run_debates(for_agent, opponents:list, turns:int=5):
 
 
 for for_agent, opponents in iterations:
-    run_debates(for_agent, opponents)
+    run_debates(for_agent, opponents, turns=4)
     break
