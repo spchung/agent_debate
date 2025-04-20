@@ -162,10 +162,7 @@ def main():
     resources = list_available_resources(RESOURCE_DIR)
 
     iterations = [
-        # ('planning', [ 'kb', ]),
-        ('kb', [ 'graph' ]),
-
-        # ('planning', [ 'basic', 'kb', 'graph' ]),
+        ('planning', [ 'basic', 'kb', 'graph' ]),
         # (planning_agent, [ basic_agent, kb_agent, graph_agent ]),
         # (kb_agent, [ basic_agent, planning_agent, graph_agent ]),
         # (kb_agent, [ basic_agent ]),
