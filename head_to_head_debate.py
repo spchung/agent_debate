@@ -20,29 +20,14 @@ def debate_agent_factory(
         raise ValueError(f"Invalid agent type: {agent_type}. Must be one of ['basic', 'planning', 'kb', 'graph']")
     
     if agent_type == "basic":
-        return BasicDebateAgent(
-            topic,
-            stance,
-            agent_config,
-        )
+        return BasicDebateAgent(topic, stance, agent_config)
     elif agent_type == "planning":
-        return PlanningDebateAgent(
-            topic,
-            stance,
-            agent_config,
-            kb_path
-        )
+        return PlanningDebateAgent(topic, stance, agent_config, kb_path)
     elif agent_type == "kb":
-        return KnowledgeBaseDebateAgent(
-            topic,
-            stance,
-            agent_config,
-            kb_path
-        )
+        return KnowledgeBaseDebateAgent(topic, stance, agent_config, kb_path)
     elif agent_type == "graph":
-        return GraphDebateAgnet(
-            topic=topic,
-            stance=stance,
+        return GraphDebateAgnet(topic,
+            stance,
             agent_config=agent_config,
             kb_path=kb_path,
             persist_kg_path=persist_kg_path
@@ -153,7 +138,7 @@ def run_debate(for_agent, opponent_agent, resources: list, turns:int=5):
     ff.write(res.debate_log_md)
     ff.close()
 
-def main():
+def main(debate_turns=5):
     # top lvl vars:
     TOPIC = "Self-regulation by the AI industry is preferable to government regulation."
     RESOURCE_DIR = "knowledge_source/ai_regulation"
@@ -162,14 +147,10 @@ def main():
     resources = list_available_resources(RESOURCE_DIR)
 
     iterations = [
-        ('planning', [ 'basic', 'kb', 'graph' ]),
-        # (planning_agent, [ basic_agent, kb_agent, graph_agent ]),
-        # (kb_agent, [ basic_agent, planning_agent, graph_agent ]),
-        # (kb_agent, [ basic_agent ]),
-        # (graph_agent, [ basic_agent, kb_agent, planning_agent ]),
+        # ('planning', [ 'basic', 'kb', 'graph' ]),
+        # ('kb', [ 'basic', 'planning', 'graph' ]),
+        ('graph', [ 'basic', 'planning', 'kb' ]),
     ]
-
-
     
     for for_agent_type, opponents_type in iterations:
         for_agent = debate_agent_factory(
@@ -189,7 +170,7 @@ def main():
                 agent_type=opponent_type,
             )
 
-            run_debate(for_agent, opponent, resources=resources, turns=3)
+            run_debate(for_agent, opponent, resources=resources, turns=debate_turns)
 
 if __name__ == "__main__":
-    main()
+    main(debate_turns=6)
