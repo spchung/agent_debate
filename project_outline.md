@@ -30,7 +30,7 @@ Five distinct agent types with different planning strategies:
    - Maps conceptual relationships between arguments and evidence
    - Can maintain and expand graph across multiple sequential debates
 
-5. **Strategic State-Based Agents**
+5. **Strategic State-Based Agents (Not Implemented)**
    - Dynamically switches between tactical states based on opponent's argument strength:
      - *Offensive:* Attacking opponent positions
      - *Defensive:* Strengthening own positions
