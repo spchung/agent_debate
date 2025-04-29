@@ -69,7 +69,11 @@ def evaluate_coherence_quality(arguments: List[str], topic: str):
     res['category'] = "Coherence Quality"
     return res
 
-def evaluate(file_path, topic):
+def evaluate(
+        file_path,
+        topic,
+        destination_dir,
+    ):
     with open(file_path, 'r') as file:
         text = file.read()
 
@@ -188,5 +192,8 @@ def evaluate(file_path, topic):
         "against_total_score": against_agent_total_score,
     }
 
-    with open(f"{file_path}_evaluation_results.json", "w") as f:
+    filename = file_path.split("/")[-1]
+    filename = filename.split(".")[0]
+
+    with open(f"{destination_dir}/{filename}_evaluation_results.json", "w") as f:
         json.dump(d, f, indent=4)
