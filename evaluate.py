@@ -3,6 +3,10 @@ from src.evaluation.evaluation import evaluate
 
 '''
 Anon transcript to markdown mapping
+
+#1 - graph_for_vs_basic_against_0
+#2 - graph_for_vs_kb_against_2
+#3 - graph_for_vs_planning_against_1
 '''
 
 def eval_all():
@@ -34,5 +38,4 @@ def eval_one(file_path):
     evaluate(file_path, topic, destination_dir)
 
 if __name__ == "__main__":
-    # eval_one('debate_results/kb_for_vs_basic_against_0.md')
     eval_all()
