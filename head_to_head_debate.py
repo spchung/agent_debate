@@ -147,8 +147,8 @@ def main(debate_turns=5):
     resources = list_available_resources(RESOURCE_DIR)
 
     iterations = [
-        # ('planning', [ 'basic', 'kb', 'graph' ]),
-        # ('kb', [ 'basic', 'planning', 'graph' ]),
+        ('planning', [ 'basic', 'kb', 'graph' ]),
+        ('kb', [ 'basic', 'planning', 'graph' ]),
         ('graph', [ 'basic', 'planning', 'kb' ]),
     ]
     
