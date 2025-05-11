@@ -8,6 +8,9 @@ from src.agents.basic.basic_agent_instructor import BasicDebateAgent
 from src.agents.graph.graph_agent_instructor import GraphDebateAgnet
 from src.debate.workers import beautifier_agent, list_available_resources
 
+from src.utils.logger import setup_logger
+logger = setup_logger()
+
 def debate_agent_factory(
     agent_config: AgnetConfig,
     topic: str,
@@ -20,12 +23,16 @@ def debate_agent_factory(
         raise ValueError(f"Invalid agent type: {agent_type}. Must be one of ['basic', 'planning', 'kb', 'graph']")
     
     if agent_type == "basic":
+        logger.critical(f"Creating Basic Debate Agent for topic: {topic} with stance: {stance}")
         return BasicDebateAgent(topic, stance, agent_config)
     elif agent_type == "planning":
+        logger.critical(f"Creating Planning Debate Agent for topic: {topic} with stance: {stance}")
         return PlanningDebateAgent(topic, stance, agent_config, kb_path)
     elif agent_type == "kb":
+        logger.critical(f"Creating Knowledge Base Debate Agent for topic: {topic} with stance: {stance}")
         return KnowledgeBaseDebateAgent(topic, stance, agent_config, kb_path)
     elif agent_type == "graph":
+        logger.critical(f"Creating Graph Debate Agent for topic: {topic} with stance: {stance}")
         return GraphDebateAgnet(topic,
             stance,
             agent_config=agent_config,
@@ -99,28 +106,35 @@ def run_debate(for_agent, opponent_agent, resources: list, turns:int=5):
 
     # turns
     while turns > 0:
+        logger.info(f"====== Round {lim - (turns - 1)} ======\n\n")
         
         # Closing 
         if turns == 1:
             log.write(f"====== Closing Statements ======\n\n")
             for_res = generate_closing(shared_mem, for_agent, moderator)
             log.write(f"[for_agent]: {for_res}\n\n")
+            logger.info(f"[FOR AGENT]: {for_res}")
             opponent_res = generate_closing(shared_mem, opponent_agent, moderator)
             log.write(f"[aganist_agent]: {opponent_res}\n\n")
+            logger.info(f"[AGAINST AGENT]: {opponent_res}")
         # Opening
         elif turns == total_turns:
             log.write(f"====== Opening Statements ======\n\n")
             res = for_agent.next_round_response(is_opening=True)
             log.write(f"[for_agent]: {res}\n\n")
+            logger.info(f"[FOR AGENT]: {res}")
             res = opponent_agent.next_round_response(is_opening=True)
             log.write(f"[aganist_agent]: {res}\n\n")
+            logger.info(f"[AGAINST AGENT]: {res}")
         # Regular rounds
         else:
             log.write(f"====== Round {lim - (turns - 1)} ======\n\n")
             res = for_agent.next_round_response()
             log.write(f"[for_agent]: {res}\n\n")
+            logger.info(f"[FOR AGENT]: {res}")
             res = opponent_agent.next_round_response()
             log.write(f"[aganist_agent]: {res}\n\n")
+            logger.info(f"[AGAINST AGENT]: {res}")
         turns -= 1
 
     log.close()
@@ -147,9 +161,10 @@ def main(debate_turns=5):
     resources = list_available_resources(RESOURCE_DIR)
 
     iterations = [
-        ('planning', [ 'basic', 'kb', 'graph' ]),
-        ('kb', [ 'basic', 'planning', 'graph' ]),
-        ('graph', [ 'basic', 'planning', 'kb' ]),
+        # ('planning', [ 'basic', 'kb', 'graph' ]),
+        # ('kb', [ 'basic', 'planning', 'graph' ]),
+        # ('graph', [ 'basic', 'planning', 'kb' ]),
+        ('planning', ['kb'])
     ]
     
     for for_agent_type, opponents_type in iterations:
